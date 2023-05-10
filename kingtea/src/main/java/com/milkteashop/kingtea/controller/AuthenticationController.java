@@ -29,7 +29,7 @@ public class AuthenticationController {
 	public ResponseEntity<String> authenticate(
 			@RequestBody AuthenticationRequestDto request) {
 		// Xử exception BadCredential
-		System.out.println(passw.encode("AdminKingTea"));
+		System.out.println(passw.encode("PhanHongSon"));
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
 		);
