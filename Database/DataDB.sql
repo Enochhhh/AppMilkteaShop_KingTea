@@ -1,14 +1,14 @@
 use milkteashop_kingtea;
 
-insert into user values ('USER1', 'AdminKingtea', '$2a$12$PmlyZR.w6E45RKB2o0gcF.MYWD9WJAD91.QmeCf/OA2z3FHVh.LQm', 
+insert into user values ('USER1', 'AdminKingtea', '$2a$10$310IPy1Ec10Z42OOfJrTi.yfYPLVxCVZ48aKk4V/CKlT3PNmH22iO', 
 	'ADMIN', '2023-09-05 16:48:20', N'Phan Hồng Sơn', N'17 Bình Chánh', '20110560@student.hcmute.edu.vn', 
-    '0785773779', '2002-04-23', null, null, null);
+    '0785773779', '2002-04-23', null, null, null, true);
 insert into user values ('USER2', 'HoangVanNam', '$2a$12$H6NHHCPnuopNqPNCHkaz0.8QRzIzZ6.1MzHT8ZS82umhK0AW7Nhm6', 
 	'CUSTOMER', '2023-09-05 16:48:20', N'Hoàng Văn Nam', N'22 Phú Thọ', 'namhoang@gmail.com', 
-    '08836667991', '2002-03-26', null, null, null);
+    '08836667991', '2002-03-26', null, null, null, true);
 insert into user values ('USER3', 'PhanHongSon', '$2a$12$UVjPqJq1NdmjJCjwppB7Me4.2nQyh0cSpfM7z4UKD4yvm8BgZwk2u', 
 	'CUSTOMER', '2023-09-05 16:48:20', N'Phan Hồng Sơn', N'22 Bình Chánh', 'phanhongson234@gmail.com', 
-    '0785773779', '2002-04-23', null, null, null);
+    '0785773779', '2002-04-23', null, null, null, true);
     
     
 insert into contact values('CONT1', N'Lỗi đăng nhập', 'Tôi không thể đăng nhập vào tài khoản của mình', 

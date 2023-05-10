@@ -28,21 +28,22 @@ create table user (
     otp_code char(10),
     otp_requested_time timestamp,
     image_url varchar(300),
+    enabled tinyint(1) not null,
     constraint UserPrimaryKey primary key(id)
 );
 
 create table order_shop (
 	id char(10),
-    receiver_name nvarchar(50),
-    phone char(11),
-    address nvarchar(50),
+    receiver_name nvarchar(50) not null,
+    phone char(11) not null,
+    address nvarchar(50) not null,
     total_price double,
     total_cost double,
-    date_created timestamp,
+    date_created timestamp not null,
     payment_method nvarchar(20),
-    state nvarchar(20),
+    state nvarchar(20) not null,
     note nvarchar(150),
-    user_id char(10),
+    user_id char(10) not null,
     constraint OrderShopPrimaryKey primary key(id)
 );
 
