@@ -23,7 +23,7 @@ create table user (
     full_name nvarchar(50),
     address nvarchar(50),
     email nvarchar(50) not null,
-    phone char(11),
+    phone char(11) not null,
     date_of_birth date,
     otp_code char(10),
     otp_requested_time timestamp,

@@ -15,16 +15,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.milkteashop.kingtea.model.User;
-import com.milkteashop.kingtea.service.UserService;
-
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
-	private final UserService userService;
+	private final JwtUserDetailService jwtUserDetailService;
 	private final JwtUtils jwtUtils; 
 	
 	@Override
@@ -47,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		
 		if (userName != null && userEmail != null 
 				&& SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = getUserDetails(userName);
+			UserDetails userDetails = jwtUserDetailService.loadUserByUsername(userName);
 			
 			if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
 				UsernamePasswordAuthenticationToken authToken = 
@@ -57,10 +54,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 		}
 		filterChain.doFilter(request, response);
-	}
-	
-	private UserDetails getUserDetails(String userName) {
-		User user = userService.findUserByUserName(userName);
-		return new JwtUserPrincipal(user);
 	}
 }

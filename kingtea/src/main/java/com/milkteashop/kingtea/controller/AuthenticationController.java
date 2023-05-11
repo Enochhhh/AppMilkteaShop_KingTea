@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.milkteashop.kingtea.config.JwtUserPrincipal;
 import com.milkteashop.kingtea.dto.AuthenticationRequestDto;
+import com.milkteashop.kingtea.dto.ResponseTokenDto;
 import com.milkteashop.kingtea.exception.NotFoundValueException;
 import com.milkteashop.kingtea.exception.UnauthorizedException;
+import com.milkteashop.kingtea.exception.ValueExistedException;
 import com.milkteashop.kingtea.model.User;
 import com.milkteashop.kingtea.service.UserService;
 
@@ -28,7 +30,7 @@ public class AuthenticationController {
 	private final com.milkteashop.kingtea.config.JwtUtils jwtUtils;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> authenticate(
+	public ResponseEntity<Object> authenticate(
 			@RequestBody AuthenticationRequestDto request) {
 		try {
 			authenticationManager.authenticate(
@@ -40,8 +42,26 @@ public class AuthenticationController {
 		final User user = userService.findUserByUserName(request.getUsername());
 		if (user != null) {
 			JwtUserPrincipal jwtUserPrincipal = new JwtUserPrincipal(user);
-			return ResponseEntity.ok(jwtUtils.generateToken(jwtUserPrincipal));
+			
+			ResponseTokenDto responseTokenDto = new ResponseTokenDto();
+			responseTokenDto.setToken(jwtUtils.generateToken(jwtUserPrincipal));
+			
+			return ResponseEntity.ok(responseTokenDto);
 		}
 		throw new NotFoundValueException("Couldn't find user with request name", pathApi + "/login");
+	}
+	
+	
+	@PostMapping("/register")
+	public ResponseEntity<Object> register(
+			@RequestBody User request) {
+		String username = request.getUserName();
+		String email = request.getEmail();
+		if (userService.isExistedByUserName(username) || userService.isExistedByEmail(email)) {
+			throw new ValueExistedException("Username/Email already existed", pathApi + "/register");
+		}
+		
+		User user = userService.createUser(request);
+		return ResponseEntity.ok(user);
 	}
 }

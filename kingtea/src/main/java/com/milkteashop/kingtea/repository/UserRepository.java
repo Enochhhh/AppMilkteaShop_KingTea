@@ -8,4 +8,6 @@ import com.milkteashop.kingtea.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 	User findByUserName(String userName);
+	boolean existsByUserName(String userName);
+	boolean existsByEmail(String email);
 }

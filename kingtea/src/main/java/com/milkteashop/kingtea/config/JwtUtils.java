@@ -60,6 +60,7 @@ public class JwtUtils {
 						jwtUserPrincipal.getUser().getUserName(), 
 						jwtUserPrincipal.getUser().getEmail()))
 				.claim("authorities", jwtUserPrincipal.getAuthorities())
+				.claim("role", jwtUserPrincipal.getUser().getRole())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(24)))
 				.signWith(SignatureAlgorithm.HS256, signingKey).compact();			

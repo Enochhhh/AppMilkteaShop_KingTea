@@ -47,7 +47,7 @@ public class User {
 	@Column(name = "email", nullable = false, length = 50)
 	private String email;
 	
-	@Column(name = "phone", length = 11)
+	@Column(name = "phone", nullable = false,length = 11)
 	private String phone;
 	
 	@Column(name = "date_of_birth")
