@@ -10,6 +10,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ApiHelper {
@@ -29,4 +31,7 @@ public interface ApiHelper {
 
     @POST("milkteashop/kingtea/authentication/login")
     Call<ResponseTokenDto> loginUser(@Body RequestLoginDto requestLogin);
+
+    @GET("milkteashop/kingtea/user/getbytoken")
+    Call<User> getUserByToken(@Header("Authorization") String token);
 }

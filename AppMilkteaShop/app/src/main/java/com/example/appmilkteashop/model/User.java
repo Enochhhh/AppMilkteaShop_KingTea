@@ -1,5 +1,11 @@
 package com.example.appmilkteashop.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+
 import java.util.Date;
 
 public class User {
@@ -15,7 +21,7 @@ public class User {
     private Date dateOfBirth;
     private String otpCode;
     private Date otpRequestedTime;
-    private String imgUrl;
+    private String imageUrl;
     private boolean enabled;
 
     public String getId() {
@@ -115,11 +121,11 @@ public class User {
     }
 
     public String getImgUrl() {
-        return imgUrl;
+        return imageUrl;
     }
 
     public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+        this.imageUrl = imgUrl;
     }
 
     public boolean isEnabled() {
@@ -128,5 +134,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView view, String imgUrl) {
+        Glide.with(view.getContext())
+                .load(imgUrl)
+                .circleCrop()
+                .into(view);
     }
 }

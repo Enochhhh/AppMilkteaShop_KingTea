@@ -43,6 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void callApiRegister() {
+        final String imgUrlDefault = "https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%2Fprofile_default.jpg?alt=media&token=de6a149b-31fe-4543-8d98-bf5de37cd5d5";
+
         User user = new User();
 
         String userName = etUserName.getText().toString();
@@ -79,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
         user.setPhone(phone);
+        user.setImgUrl(imgUrlDefault);
 
 
         ApiHelper.apiService.registerUser(user).enqueue(new Callback<User>() {

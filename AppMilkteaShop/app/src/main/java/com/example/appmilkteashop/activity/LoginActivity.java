@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseTokenDto> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Login Unsuccessfully\nPlease check username and password.",
+                Toast.makeText(LoginActivity.this, "Login Unsuccessfully",
                         Toast.LENGTH_LONG).show();
             }
         });

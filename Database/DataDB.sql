@@ -5,7 +5,7 @@ insert into user values ('USER1', 'AdminKingtea', '$2a$10$SNnwNJ7k0yQDSfOhit1RIe
     '0785773779', '2002-04-23', null, null, 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%2Fprofile_admin.jpg?alt=media&token=58bb49bf-18d0-4272-877e-96ca4d872c40', true);
 insert into user values ('USER2', 'HoangVanNam', '$2a$10$r1LHZGKz8gn.sfmaLD4LMuD8XqymJISAJO7c9tVmRI7.Dhidf84jG', 
 	'CUSTOMER', '2023-09-05 16:48:20', N'Hoàng Văn Nam', N'22 Phú Thọ', 'namhoang@gmail.com', 
-    '08836667991', '2002-03-26', null, null, null, true);
+    '08836667991', '2002-03-26', null, null, 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%2Fprofile_default.jpg?alt=media&token=de6a149b-31fe-4543-8d98-bf5de37cd5d5', true);
 insert into user values ('USER3', 'PhanHongSon', '$2a$10$EvQVyzDZ0TCdUyWnY6.HeexR163RWlvixFgsWVdBJjaFM9nQDYwjm', 
 	'CUSTOMER', '2023-09-05 16:48:20', N'Phan Hồng Sơn', N'22 Bình Chánh', 'phanhongson234@gmail.com', 
     '0785773779', '2002-04-23', null, null, 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%2Fprofile_user_hongson.jpg?alt=media&token=5e28f65b-576f-4c41-9204-bdbe3dc3c13c', true);
