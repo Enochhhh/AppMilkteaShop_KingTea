@@ -1,8 +1,8 @@
-package com.example.appmilkteashop.service;
+package com.example.appmilkteashop.helper;
 
 import com.auth0.android.jwt.JWT;
 
-public class JwtService {
+public class JwtHelper {
     public static String getSubjectFromToken(String token) {
         JWT jwt = new JWT(token);
         return jwt.getSubject();

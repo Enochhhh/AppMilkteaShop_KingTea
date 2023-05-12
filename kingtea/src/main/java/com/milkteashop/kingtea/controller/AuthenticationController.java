@@ -32,6 +32,13 @@ public class AuthenticationController {
 	@PostMapping("/login")
 	public ResponseEntity<Object> authenticate(
 			@RequestBody AuthenticationRequestDto request) {
+		
+		// Check Username exists or not? Because Spring Security only check request from Client with User is existed
+		User user = userService.findUserByUserName(request.getUsername());
+		if (user == null) {
+			throw new NotFoundValueException("Couldn't find user with request name", pathApi + "/login");
+		}
+		
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -39,16 +46,12 @@ public class AuthenticationController {
 			throw new UnauthorizedException("Unable to authenticate user information", pathApi + "/login");
 		}
 		
-		final User user = userService.findUserByUserName(request.getUsername());
-		if (user != null) {
-			JwtUserPrincipal jwtUserPrincipal = new JwtUserPrincipal(user);
+		JwtUserPrincipal jwtUserPrincipal = new JwtUserPrincipal(user);
 			
-			ResponseTokenDto responseTokenDto = new ResponseTokenDto();
-			responseTokenDto.setToken(jwtUtils.generateToken(jwtUserPrincipal));
+		ResponseTokenDto responseTokenDto = new ResponseTokenDto();
+		responseTokenDto.setToken(jwtUtils.generateToken(jwtUserPrincipal));
 			
-			return ResponseEntity.ok(responseTokenDto);
-		}
-		throw new NotFoundValueException("Couldn't find user with request name", pathApi + "/login");
+		return ResponseEntity.ok(responseTokenDto);
 	}
 	
 	

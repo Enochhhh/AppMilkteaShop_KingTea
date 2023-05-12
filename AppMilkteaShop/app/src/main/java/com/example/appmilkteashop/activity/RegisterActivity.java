@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.appmilkteashop.R;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
 import com.example.appmilkteashop.model.User;
-import com.example.appmilkteashop.service.ApiService;
+import com.example.appmilkteashop.helper.ApiHelper;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setPhone(phone);
 
 
-        ApiService.apiService.registerUser(user).enqueue(new Callback<User>() {
+        ApiHelper.apiService.registerUser(user).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {

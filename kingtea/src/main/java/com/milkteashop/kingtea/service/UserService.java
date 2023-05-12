@@ -21,11 +21,6 @@ public class UserService {
 	
 	public User findUserByUserName(String userName) {
 		User user = userRepository.findByUserName(userName);
-		System.out.print(passwordEncoder.encode("AdminKingtea"));
-		
-		if (user == null) {
-			//throw exception
-		}
 		return user;
 	}
 	
