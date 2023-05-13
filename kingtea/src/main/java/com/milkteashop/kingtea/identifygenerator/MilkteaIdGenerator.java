@@ -12,19 +12,19 @@ import org.hibernate.id.IdentifierGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserIdGenerator implements IdentifierGenerator {
+public class MilkteaIdGenerator implements IdentifierGenerator {
 
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object object) 
 			throws HibernateException {
-		Logger logger = LoggerFactory.getLogger(UserIdGenerator.class);
-		String prefix = "USER";
+		Logger logger = LoggerFactory.getLogger(MilkteaIdGenerator.class);
+		String prefix = "MTEA";
 		Connection connection = session.connection();
 		
 		try {
 			Statement statement = connection.createStatement();
 			
-			ResultSet rs = statement.executeQuery("select count(id) as Id from user");
+			ResultSet rs = statement.executeQuery("select count(milktea_id) as Id from milk_tea");
 			
 			if(rs.next()) {
 				int id = rs.getInt(1) + 1;
@@ -32,9 +32,10 @@ public class UserIdGenerator implements IdentifierGenerator {
 				return generatedId;
 			}
 		} catch(SQLException e) {
-			logger.info("Generator Id for User unsuccessfully !");
+			logger.info("Generator Id for Milktea unsuccessfully !");
 			logger.error(e.getMessage());
 		}
 		return null;
 	}
+	
 }

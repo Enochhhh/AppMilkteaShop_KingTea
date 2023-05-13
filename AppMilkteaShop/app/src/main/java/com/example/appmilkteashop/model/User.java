@@ -6,9 +6,10 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private String id;
     private String userName;
     private String password;

@@ -1,16 +1,21 @@
 package com.milkteashop.kingtea.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -66,4 +71,16 @@ public class User {
 	
 	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "RelationshipUserAndOrder")
+	private List<Order> listOrder;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "RelationshipUserAndCartLine")
+	private List<CartLine> listUser;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonManagedReference(value = "RelationUserAndContact")
+	private List<Contact> listContact;
 }

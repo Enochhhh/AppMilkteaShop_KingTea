@@ -12,29 +12,31 @@ import org.hibernate.id.IdentifierGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserIdGenerator implements IdentifierGenerator {
+
+public class CategoryIdGenerator implements IdentifierGenerator {
 
 	@Override
 	public Serializable generate(SharedSessionContractImplementor session, Object object) 
 			throws HibernateException {
-		Logger logger = LoggerFactory.getLogger(UserIdGenerator.class);
-		String prefix = "USER";
+		Logger logger = LoggerFactory.getLogger(CategoryIdGenerator.class);
+		String prefix = "CATE";
 		Connection connection = session.connection();
 		
 		try {
 			Statement statement = connection.createStatement();
 			
-			ResultSet rs = statement.executeQuery("select count(id) as Id from user");
+			ResultSet resultSet = statement.executeQuery("select count(category_id) as Id from category");
 			
-			if(rs.next()) {
-				int id = rs.getInt(1) + 1;
+			if (resultSet.next()) {
+				int id = resultSet.getInt(1);
 				String generatedId = prefix + String.valueOf(id);
 				return generatedId;
 			}
-		} catch(SQLException e) {
-			logger.info("Generator Id for User unsuccessfully !");
+		} catch (SQLException e) {
+			logger.info("Generator Id for Category unsuccessfully !");
 			logger.error(e.getMessage());
 		}
 		return null;
 	}
+
 }

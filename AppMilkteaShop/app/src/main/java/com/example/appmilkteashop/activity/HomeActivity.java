@@ -42,6 +42,10 @@ public class HomeActivity extends AppCompatActivity {
                 .apply(new RequestOptions().transform(new CenterCrop()).transform(new RoundedCorners(80)))
                 .into(imvBanner);
 
+        loadProfileUser(activityHomeBinding);
+    }
+
+    private void loadProfileUser(ActivityHomeBinding activityHomeBinding) {
         SharedPreferences sharedPreferences = getSharedPreferences("TokenValue", 0);
         String token = sharedPreferences.getString("token", "");
         callApiGetUserByToken(token, activityHomeBinding);

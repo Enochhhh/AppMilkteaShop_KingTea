@@ -12,19 +12,18 @@ import org.hibernate.id.IdentifierGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UserIdGenerator implements IdentifierGenerator {
+public class ContactIdGenerator implements IdentifierGenerator {
 
 	@Override
-	public Serializable generate(SharedSessionContractImplementor session, Object object) 
-			throws HibernateException {
-		Logger logger = LoggerFactory.getLogger(UserIdGenerator.class);
-		String prefix = "USER";
+	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+		Logger logger = LoggerFactory.getLogger(ContactIdGenerator.class);
+		String prefix = "CONT";
 		Connection connection = session.connection();
 		
 		try {
 			Statement statement = connection.createStatement();
 			
-			ResultSet rs = statement.executeQuery("select count(id) as Id from user");
+			ResultSet rs = statement.executeQuery("select count(contact_id) as Id from contact");
 			
 			if(rs.next()) {
 				int id = rs.getInt(1) + 1;
@@ -32,9 +31,10 @@ public class UserIdGenerator implements IdentifierGenerator {
 				return generatedId;
 			}
 		} catch(SQLException e) {
-			logger.info("Generator Id for User unsuccessfully !");
+			logger.info("Generator Id for Contact unsuccessfully !");
 			logger.error(e.getMessage());
 		}
 		return null;
 	}
+
 }
