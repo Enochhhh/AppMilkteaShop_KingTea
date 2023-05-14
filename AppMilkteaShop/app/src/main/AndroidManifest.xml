@@ -29,6 +29,7 @@
         <activity android:name=".activity.ExceptionActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.AdminActivity" />
+        <activity android:name=".activity.CartActivity" />
     </application>
 
 </manifest>

@@ -1,10 +1,16 @@
 package com.example.appmilkteashop.helper;
 
+import com.example.appmilkteashop.dto.CustomMilkteaDto;
 import com.example.appmilkteashop.dto.RequestLoginDto;
+import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.dto.ResponseTokenDto;
+import com.example.appmilkteashop.model.Category;
+import com.example.appmilkteashop.model.Milktea;
 import com.example.appmilkteashop.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -13,9 +19,10 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiHelper {
-    public static final String domainApi = "http://192.168.1.10:8080/";
+    public static final String domainApi = "http://192.168.1.150:8080/";
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
@@ -34,4 +41,15 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/user/getbytoken")
     Call<User> getUserByToken(@Header("Authorization") String token);
+
+    @GET("milkteashop/kingtea/category/getall")
+    Call<List<Category>> getAllCategory(@Header("Authorization") String token);
+
+    @GET("milkteashop/kingtea/milktea/getbycategoryname")
+    Call<List<Milktea>> getMilkteaSpecial(@Header("Authorization") String token,
+                                          @Query("name") String name);
+
+    @POST("milkteashop/kingtea/cart/addtocart")
+    Call<ResponseStringDto> addMilkteaToCart(@Header("Authorization") String token,
+                                             @Body CustomMilkteaDto customMilkteaDto);
 }

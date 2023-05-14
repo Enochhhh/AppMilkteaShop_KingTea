@@ -27,6 +27,11 @@ public class JwtUtils {
 		return subjectArr[1];
 	}
 	
+	public String extractUserId(String token) {
+		String[] subjectArr = extractSubject(token).split(", ");
+		return subjectArr[0];
+	}
+	
 	public String extractSubject(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}

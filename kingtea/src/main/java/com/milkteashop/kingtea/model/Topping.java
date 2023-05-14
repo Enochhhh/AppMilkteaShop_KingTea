@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -34,5 +36,6 @@ public class Topping {
 	private int cost;
 	
 	@ManyToMany(mappedBy = "listTopping", fetch = FetchType.LAZY)
+	@JsonIgnore
 	List<CustomMilktea> listCustomMilktea;
 }

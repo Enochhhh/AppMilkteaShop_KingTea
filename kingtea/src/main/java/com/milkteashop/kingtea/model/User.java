@@ -78,7 +78,7 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "RelationshipUserAndCartLine")
-	private List<CartLine> listUser;
+	private List<CartLine> listCartLine;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "RelationUserAndContact")

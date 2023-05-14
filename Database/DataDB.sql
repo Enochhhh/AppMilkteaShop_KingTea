@@ -29,9 +29,9 @@ insert into category values('CATE3', N'Trà Sữa',
 insert into category values('CATE4', N'Trà Tươi', 
 	N'Một cây trà nếu được trồng ở những vùng đất có độ cao và khí hậu khác nhau thì sẽ thu được những loại trà cũng khác nhau. Có thể thấy sự phức tạp đến từ phía bên trong, từ những thành phần cũng như cấu tạo hoá học độc nhất vô nhị mà chỉ mình cây trà có được. Thấu hiểu điều đó, để giữ trọn vị tươi nguyên, bảo toàn dưỡng chất tốt nhất, một búp và hai lá non thường được chúng tôi thu hái vào thời điểm sáng sớm. Tiếp đến, quy trình sản xuất để cho ra các sản phẩm trà chất lượng cũng được thực hiện khép kín.', 
     'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%20Category%20Image%2Fcate_tea.png?alt=media&token=069f9c7b-aa50-4273-887b-7c42f716a040', true);
-insert into category values('CATE5', N'Trà Đặc Biệt', 
+insert into category values('CATE5', N'Đặc Biệt', 
 	N'Những ly trà được pha chế một cách tỉ mỉ, kết hợp những vị đặc biệt tạo cho bạn một trải nghiệm mới mẻ, mang đến cho bạn hương vị không thể chối từ.',
-	null, true);
+	'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%20Category%20Image%2Fspecial-offer.png?alt=media&token=19c3e176-6fba-496d-a2bb-5097e3c4a91d', true);
 insert into category values('CATE6', N'Kem Tuyết', 
 	N'Kem Tuyết là một món không còn gì xa lạ đối với những tín đồ chuyên uống trà sữa. Đặc biệt vào những ngày nóng bức, còn gì tuyệt vời một ly kem tuyết giải nhiệt ở Ba Con Báo đúng không nè.',
     'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%20Category%20Image%2Fsnow_ice_cream.png?alt=media&token=2e549324-c56c-4489-93f9-e72b3fa01063', true);

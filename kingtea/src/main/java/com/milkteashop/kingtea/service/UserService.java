@@ -23,7 +23,7 @@ public class UserService {
 	
 	
 	public User findUserByUserName(String userName) {
-		User user = userRepository.findByUserName(userName);
+		User user = userRepository.findByUserNameAndEnabledTrue(userName);
 		return user;
 	}
 	

@@ -9,6 +9,9 @@
         <variable
             name="messageHello"
             type="String" />
+        <variable
+            name="home"
+            type="com.example.appmilkteashop.activity.HomeActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +33,18 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvSeemore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:text="See More"
+                        android:textColor="#FF3D00"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView16" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -183,8 +198,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcViewCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="198dp"
+                        android:layout_width="419dp"
+                        android:layout_height="136dp"
+                        android:clipToPadding="false"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvCate" />
@@ -192,7 +210,10 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcViewSpecial"
                         android:layout_width="418dp"
-                        android:layout_height="207dp"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -203,7 +224,7 @@
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

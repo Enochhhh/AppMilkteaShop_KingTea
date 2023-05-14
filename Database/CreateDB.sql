@@ -49,7 +49,7 @@ create table order_shop (
 );
 
 create table cart_line (
-	cartline_id int,
+	cartline_id int auto_increment,
 	user_id char(10),
     custom_milktea_id char(10),
     total_price_on_line double,
@@ -104,7 +104,7 @@ create table custom_milktea (
 );
 
 create table order_line(
-	orderline_id int,
+	orderline_id int auto_increment,
 	order_id char(10),
     custom_milktea_id char(10),
     total_price_on_line int,

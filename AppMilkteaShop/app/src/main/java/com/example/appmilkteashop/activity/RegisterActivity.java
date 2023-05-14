@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 } else {
                     ResponseErrorDto message = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
-                    if (message.getStatus() == "INTERNAL_SERVER_ERROR" || message.getStatus() == null) {
+                    if (message.getStatus().equals("INTERNAL_SERVER_ERROR") || message == null) {
                         startActivity(new Intent(RegisterActivity.this, ExceptionActivity.class));
                     }
                     Toast.makeText(RegisterActivity.this, "" + message.getMessage(), Toast.LENGTH_LONG).show();

@@ -41,7 +41,7 @@ public class Milktea {
 	@Column(name = "cost")
 	private int cost;
 	
-	@Column(name = "img_url", length = 255)
+	@Column(name = "image_url", length = 255)
 	private String imgUrl;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -52,7 +52,7 @@ public class Milktea {
 	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
-	@OneToMany(mappedBy = "milkTea")
+	@OneToMany(mappedBy = "milkTea", fetch = FetchType.LAZY)
 	@JsonManagedReference(value = "RelationshipMilkteaAndCustomMilktea")
 	private List<CustomMilktea> listCustomMilktea;
 }

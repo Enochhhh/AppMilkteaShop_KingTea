@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
-                    if (error.getStatus() .equals("INTERNAL_SERVER_ERROR") || error.getStatus() == null) {
+                    if (error.getStatus() .equals("INTERNAL_SERVER_ERROR") || error == null) {
                         startActivity(new Intent(LoginActivity.this, ExceptionActivity.class));
                     }
                     Toast.makeText(LoginActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();

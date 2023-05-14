@@ -57,8 +57,8 @@ public class CustomMilktea {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "add_on_milktea",
-			joinColumns = @JoinColumn(name = "id"),
-			inverseJoinColumns = @JoinColumn(name = "id_topping"))
+			joinColumns = @JoinColumn(name = "custom_milktea_id"),
+			inverseJoinColumns = @JoinColumn(name = "topping_id"))
 	List<Topping> listTopping;
 	
 	@OneToMany(mappedBy = "customMilktea", fetch = FetchType.LAZY)
