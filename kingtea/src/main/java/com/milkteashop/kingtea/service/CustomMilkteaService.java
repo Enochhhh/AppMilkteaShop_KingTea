@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.milkteashop.kingtea.exception.NotFoundValueException;
 import com.milkteashop.kingtea.model.CustomMilktea;
 import com.milkteashop.kingtea.model.Milktea;
 import com.milkteashop.kingtea.model.Topping;
@@ -77,5 +78,10 @@ public class CustomMilkteaService {
 	
 	public List<CustomMilktea> getCustomMilkteaByMilktea(Milktea milktea) {
 		return customMilkteaRepository.findByMilkTeaAndEnabledTrue(milktea);
+	}
+	
+	public CustomMilktea getById(String id) {
+		return customMilkteaRepository.findById(id).orElseThrow(
+				() -> new NotFoundValueException("Couldn't find CustomMilktea by Id", "/milkteashop/kingtea/custommilktea"));
 	}
 }

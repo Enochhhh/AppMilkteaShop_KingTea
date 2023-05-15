@@ -21,6 +21,18 @@ public class CustomMilkteaDto {
 
     int totalPriceOfItem;
 
+    String nameMilktea;
+
+    String imgUrl;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public String getCustomMilkteaId() {
         return customMilkteaId;
     }
@@ -91,5 +103,13 @@ public class CustomMilkteaDto {
 
     public void setTotalPriceOfItem(int totalPriceOfItem) {
         this.totalPriceOfItem = totalPriceOfItem;
+    }
+
+    public String getNameMilktea() {
+        return nameMilktea;
+    }
+
+    public void setNameMilktea(String nameMilktea) {
+        this.nameMilktea = nameMilktea;
     }
 }

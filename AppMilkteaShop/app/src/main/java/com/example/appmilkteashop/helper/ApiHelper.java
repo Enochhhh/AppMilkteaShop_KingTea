@@ -16,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -52,4 +53,19 @@ public interface ApiHelper {
     @POST("milkteashop/kingtea/cart/addtocart")
     Call<ResponseStringDto> addMilkteaToCart(@Header("Authorization") String token,
                                              @Body CustomMilkteaDto customMilkteaDto);
+
+    @GET("milkteashop/kingtea/cart/getmilktea")
+    Call<List<CustomMilkteaDto>> getCart(@Header("Authorization") String token);
+
+    @POST("milkteashop/kingtea/cart/increaseitemoncart")
+    Call<ResponseStringDto> increaseMilkteaItem(@Header("Authorization") String token,
+                                             @Body CustomMilkteaDto customMilkteaDto);
+
+    @POST("milkteashop/kingtea/cart/decreaseitemoncart")
+    Call<ResponseStringDto> decreaseMilkteaItem(@Header("Authorization") String token,
+                                                @Body CustomMilkteaDto customMilkteaDto);
+
+    @DELETE("milkteashop/kingtea/cart/deleteitem")
+    Call<ResponseStringDto> deleteCartLine(@Header("Authorization") String token,
+                                                @Query("customMilkteaDto") String customMilkteaDto);
 }

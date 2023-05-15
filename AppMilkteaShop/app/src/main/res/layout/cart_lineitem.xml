@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="130dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="5dp"
@@ -21,9 +21,9 @@
         <TextView
             android:id="@+id/tvTopping"
             android:layout_width="270dp"
-            android:layout_height="30dp"
-            android:text="Lượng đá: 50%, Lượng đường: 50%\nTopping: Trân Châu, Bánh Flan"
-            android:textSize="8dp"
+            android:layout_height="48dp"
+            android:text="@{viewHolderCart.toppings}"
+            android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvTotalEachItem"
             app:layout_constraintHorizontal_bias="0.0"
@@ -46,6 +46,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="4dp"
+            app:imageUrl="@{viewHolderCart.imgUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,8 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
-            android:text="Title"
+            android:text="@{viewHolderCart.title}"
             android:textColor="#373b54"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -68,7 +68,7 @@
             android:id="@+id/tvTotalEachItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0"
+            android:text="@{viewHolderCart.price}"
             android:textColor="#373b54"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -84,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvTitleCart"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleCart"
-            app:layout_constraintVertical_bias="0.244">
+            app:layout_constraintVertical_bias="0.14">
 
             <ImageView
                 android:id="@+id/minusCartBtn"
@@ -133,7 +133,7 @@
                     android:id="@+id/tvNumberItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
+                    android:text="@{viewHolderCart.quantity}"
                     android:textColor="#373b54"
                     android:textSize="18sp"
                     android:textStyle="bold"

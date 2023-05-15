@@ -80,6 +80,50 @@ public class CartLineService {
 		return cartLineRepository.save(cartLine);
 	}
 	
+	public void increaseMilktea(HttpServletRequest request, CustomMilkteaDto customMilkteaDto) {
+		String token = request.getHeader("Authorization").substring(7);
+		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElseThrow(
+					() -> new NotFoundValueException("Couldn't find User", "/milkteashop/kingtea/cart/increasemilktea"));
+		
+		CustomMilktea customMilktea = customMilkteaService.getById(customMilkteaDto.getCustomMilkteaId());
+		CartLine cartLine = cartLineRepository.findByUserAndCustomMilktea(user, customMilktea);
+		if (cartLine != null) {
+			cartLine.setQuantity(cartLine.getQuantity() + customMilkteaDto.getQuantity());
+			cartLine.setTotalCostOnLine(calculateTotalCost(customMilktea, cartLine.getQuantity()));
+			cartLine.setTotalPriceOnLine(calculateTotalPrice(customMilktea, cartLine.getQuantity()));
+			cartLineRepository.save(cartLine);
+		}
+	}
+	
+	public void decreaseMilktea(HttpServletRequest request, CustomMilkteaDto customMilkteaDto) {
+		String token = request.getHeader("Authorization").substring(7);
+		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElseThrow(
+					() -> new NotFoundValueException("Couldn't find User", "/milkteashop/kingtea/cart/increasemilktea"));
+		
+		CustomMilktea customMilktea = customMilkteaService.getById(customMilkteaDto.getCustomMilkteaId());
+		CartLine cartLine = cartLineRepository.findByUserAndCustomMilktea(user, customMilktea);
+		if (cartLine != null) {
+			if (cartLine.getQuantity() == 1) {
+				cartLineRepository.delete(cartLine);
+				return;
+			}
+			cartLine.setQuantity(cartLine.getQuantity() - customMilkteaDto.getQuantity());
+			cartLine.setTotalCostOnLine(calculateTotalCost(customMilktea, cartLine.getQuantity()));
+			cartLine.setTotalPriceOnLine(calculateTotalPrice(customMilktea, cartLine.getQuantity()));
+			cartLineRepository.save(cartLine);
+		}
+	}
+	
+	public void deleteCartLine(HttpServletRequest request, String customMilkteaId) {
+		String token = request.getHeader("Authorization").substring(7);
+		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElseThrow(
+					() -> new NotFoundValueException("Couldn't find User", "/milkteashop/kingtea/cart/increasemilktea"));
+		
+		CustomMilktea customMilktea = customMilkteaService.getById(customMilkteaId);
+		CartLine cartLine = cartLineRepository.findByUserAndCustomMilktea(user, customMilktea);
+		cartLineRepository.delete(cartLine);
+	}
+	
 	private int calculateTotalPrice(CustomMilktea customMilktea, int quantity) {
 		int price = customMilktea.getPrice();
 		List<Topping> toppings = customMilktea.getListTopping();
@@ -135,7 +179,7 @@ public class CartLineService {
 		dto.setMilkTeaId(entity.getMilkTea().getMilkTeaId());
 		dto.setEnabled(true);
 		dto.setNameMilktea(entity.getMilkTea().getName());
-		
+		dto.setImgUrl(entity.getMilkTea().getImgUrl());		
 		List<String> toppingName = new ArrayList<>();
 		List<Topping> toppings = entity.getListTopping();
 		for (Topping topping : toppings) {

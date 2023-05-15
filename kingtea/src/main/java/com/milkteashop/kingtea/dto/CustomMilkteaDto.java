@@ -24,6 +24,16 @@ public class CustomMilkteaDto {
 	int totalPriceOfItem;
 	
 	String nameMilktea;
+	
+	String imgUrl;
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	public String getCustomMilkteaId() {
 		return customMilkteaId;

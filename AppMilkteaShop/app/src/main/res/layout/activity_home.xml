@@ -23,7 +23,10 @@
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +53,7 @@
                         android:id="@+id/textView16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="5dp"
                         android:text="Specials"
                         android:textColor="#000000"
                         android:textSize="16sp"
@@ -65,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="32dp"
-                        android:text= "@{messageHello}"
+                        android:text="@{messageHello}"
                         android:textColor="#ff3d00"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -88,8 +91,8 @@
                         android:layout_width="70dp"
                         android:layout_height="64dp"
                         android:layout_marginEnd="32dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView12"
                         app:imageUrl="@{user.imgUrl}"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView12"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvHelloUser" />
 
@@ -199,7 +202,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcViewCategory"
                         android:layout_width="419dp"
-                        android:layout_height="136dp"
+                        android:layout_height="120dp"
                         android:clipToPadding="false"
                         android:paddingStart="22dp"
                         android:paddingEnd="22dp"

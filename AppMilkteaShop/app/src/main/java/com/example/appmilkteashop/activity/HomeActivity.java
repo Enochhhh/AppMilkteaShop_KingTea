@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,16 @@ public class HomeActivity extends AppCompatActivity {
                         public void change(boolean isPlus, Milktea milktea) {
                             callApiUpdateToCart(token, milktea, isPlus);
                         }
+
+                        @Override
+                        public void delete(CustomMilkteaDto customMilkteaDto) {
+                            return;
+                        }
+
+                        @Override
+                        public void change(boolean isPlus, CustomMilkteaDto milktea) {
+                            return;
+                        }
                     });
                     activityHomeBinding.rcViewSpecial.setAdapter(specialAdapter);
                 } else {
@@ -120,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
                     if (response.isSuccessful()) {
                         ResponseStringDto stringDto = response.body();
-                        Toast.makeText(HomeActivity.this, stringDto.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, stringDto.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                         if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
@@ -211,5 +222,19 @@ public class HomeActivity extends AppCompatActivity {
     private void Mapping() {
         imvAva = (ImageView) findViewById(R.id.imvAvatar);
         imvBanner = (ImageView) findViewById(R.id.imvBanner);
+
+        activityHomeBinding.tvBottomCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            }
+        });
+        activityHomeBinding.imvBottomCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            }
+        });
+
     }
 }

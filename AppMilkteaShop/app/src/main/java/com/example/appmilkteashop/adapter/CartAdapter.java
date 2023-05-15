@@ -1,6 +1,7 @@
 package com.example.appmilkteashop.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appmilkteashop.R;
 import com.example.appmilkteashop.databinding.CartLineitemBinding;
-import com.example.appmilkteashop.databinding.CategoryLineitemBinding;
-import com.example.appmilkteashop.databinding.SpecialLineitemBinding;
-import com.example.appmilkteashop.model.Category;
-import com.example.appmilkteashop.model.Milktea;
+import com.example.appmilkteashop.dto.CustomMilkteaDto;
+import com.example.appmilkteashop.listener.ChangeNumberItemListener;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
-    private List<Milktea> milkteaList;
+    private List<CustomMilkteaDto> customMilkteaDtoList;
+    private ChangeNumberItemListener changeNumberItemListener;
 
-    public CartAdapter(List<Milktea> milkteaList) {
-        this.milkteaList = milkteaList;
+    public CartAdapter(List<CustomMilkteaDto> customMilkteaDtoList, ChangeNumberItemListener changeNumberItemListener) {
+        this.customMilkteaDtoList = customMilkteaDtoList;
+        this.changeNumberItemListener = changeNumberItemListener;
     }
 
     @NonNull
@@ -34,17 +35,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder holder, int position) {
-        holder.setBinding(milkteaList.get(position));
+        holder.setBinding(customMilkteaDtoList.get(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return milkteaList.size();
+        return customMilkteaDtoList.size();
     }
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
         public ObservableField<String> imgUrl = new ObservableField<>();
-        public ObservableField<String> name= new ObservableField<>();
+        public ObservableField<String> title= new ObservableField<>();
+        public ObservableField<String> quantity= new ObservableField<>();
+        public ObservableField<String> toppings= new ObservableField<>();
         public ObservableField<String> price = new ObservableField<>();
         private CartLineitemBinding cartLineitemBinding;
 
@@ -53,13 +56,43 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             this.cartLineitemBinding = itemView;
         }
 
-        public void setBinding(Milktea milktea) {
+        public void setBinding(CustomMilkteaDto customMilkteaDto, int position) {
             if (cartLineitemBinding.getViewHolderCart() == null) {
                 cartLineitemBinding.setViewHolderCart(this);
             }
-            imgUrl.set(milktea.getImgUrl());
-            name.set(milktea.getName());
-            price.set(String.valueOf(milktea.getPrice()) + "\n  VND");
+            imgUrl.set(customMilkteaDto.getImgUrl());
+            title.set(customMilkteaDto.getNameMilktea());
+            quantity.set(String.valueOf(customMilkteaDto.getQuantity()));
+
+            String detail = "Lượng Đá: " + customMilkteaDto.getIceAmount() + ", Lượng Đường: " + customMilkteaDto.getSugarAmount() +
+                    "\n" + "Toppings: ";
+            List<String> toppingsList = customMilkteaDto.getListTopping();
+            for (String name : toppingsList) {
+                detail = detail + name + ", ";
+            }
+            toppings.set(detail.substring(0, detail.length() - 2));
+            
+            price.set(String.valueOf(customMilkteaDto.getTotalPriceOfItem()) + " VND");
+
+            cartLineitemBinding.plusCartBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeNumberItemListener.change(true, customMilkteaDtoList.get(position));
+                }
+            });
+
+            cartLineitemBinding.minusCartBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeNumberItemListener.change(false, customMilkteaDtoList.get(position));
+                }
+            });
+            cartLineitemBinding.btnDel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeNumberItemListener.delete(customMilkteaDtoList.get(position));
+                }
+            });
         }
     }
 }

@@ -39,4 +39,8 @@ public class MilkteaService {
 		
 		return milkteas;
 	}
+	
+	public Milktea saveMilktea(Milktea milktea) {
+		return milkTeaRepository.save(milktea);
+	}
 }

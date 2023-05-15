@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,9 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
+        prefTokens.edit().clear().commit();
 
         ConstraintLayout startBtn = (ConstraintLayout) findViewById(R.id.startBtn);
         startBtn.setOnClickListener(new View.OnClickListener() {
