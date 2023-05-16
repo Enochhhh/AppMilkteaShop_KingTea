@@ -30,6 +30,7 @@ public class OrderService {
 	@Autowired CartLineRepository cartLineRepository;
 	@Autowired OrderLineRepository orderLineRepository;
 	@Autowired MilkTeaRepository milkTeaRepository;
+	@Autowired MailSenderService mailSenderService;
 	@Autowired JwtUtils jwtUtils;
 	
 	public Order createOrder(Order order, HttpServletRequest request) {
@@ -101,5 +102,24 @@ public class OrderService {
 		cartLineRepository.deleteByUser(order.getUser()); 
 		order.setTotalCost(totalCost);
 		return orderRepository.save(order);
+	}
+	
+	public Order getOrder(String id) {
+		Order order = orderRepository.findById(id).orElse(null);
+		
+		return order;
+	}
+	
+	public void sendEmailToCustomer(HttpServletRequest request) {
+		String token = request.getHeader("Authorization").substring(7);
+		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElse(null);
+		
+		String subject = "Notice about your order at KingTea milk tea shop";
+		String body = "<b>Thank you for coming to KingTea</b> <br>"			
+				+ "<p>Hi " + user.getFullName() == null ? user.getUserName() : user.getFullName() 
+						+ ", thank you for ordering at KingTeaShop. Your order will be delivered to you as soon as possible.</p><br>"
+						+ "<p>We look forward to seeing you in the shop again. Have a good day.</p>";
+		body.concat("<p>We look forward to seeing you in the shop again. Have a good day.</p>");
+		mailSenderService.sendEmail(user.getEmail(), subject, body);
 	}
 }

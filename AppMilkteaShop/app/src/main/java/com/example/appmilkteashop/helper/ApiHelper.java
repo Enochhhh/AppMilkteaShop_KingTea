@@ -73,4 +73,7 @@ public interface ApiHelper {
     @POST("milkteashop/kingtea/order/create")
     Call<Order> createOrder(@Header("Authorization") String token,
                             @Body Order order);
+
+    @GET("milkteashop/kingtea/order/sendemail")
+    Call<ResponseStringDto> sendMail(@Header("Authorization") String token);
 }

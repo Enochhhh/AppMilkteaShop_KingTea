@@ -1,5 +1,6 @@
 package com.milkteashop.kingtea.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class Order {
 	@JsonBackReference(value = "RelationshipUserAndOrder")
 	private User user;
 	
-	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	@JsonManagedReference(value = "RelationOrderAndOrderLine")
-	private List<OrderLine> listOrderLine;
+	private List<OrderLine> listOrderLine = new ArrayList<>();;
 }
