@@ -76,11 +76,15 @@ public class CartLineService {
 			cartLine.setTotalCostOnLine(calculateTotalCost(milkteaRequest, quantity));
 			cartLine.setTotalPriceOnLine(calculateTotalPrice(milkteaRequest, quantity));
 		}
+		
+		if(cartLine.getQuantity() > milkteaRequest.getMilkTea().getQuantity()) {
+			return null;
+		}
 			
 		return cartLineRepository.save(cartLine);
 	}
 	
-	public void increaseMilktea(HttpServletRequest request, CustomMilkteaDto customMilkteaDto) {
+	public boolean increaseMilktea(HttpServletRequest request, CustomMilkteaDto customMilkteaDto) {
 		String token = request.getHeader("Authorization").substring(7);
 		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElseThrow(
 					() -> new NotFoundValueException("Couldn't find User", "/milkteashop/kingtea/cart/increasemilktea"));
@@ -91,8 +95,12 @@ public class CartLineService {
 			cartLine.setQuantity(cartLine.getQuantity() + customMilkteaDto.getQuantity());
 			cartLine.setTotalCostOnLine(calculateTotalCost(customMilktea, cartLine.getQuantity()));
 			cartLine.setTotalPriceOnLine(calculateTotalPrice(customMilktea, cartLine.getQuantity()));
+			if(cartLine.getQuantity() > customMilktea.getMilkTea().getQuantity()) {
+				return false;
+			}
 			cartLineRepository.save(cartLine);
 		}
+		return true;
 	}
 	
 	public void decreaseMilktea(HttpServletRequest request, CustomMilkteaDto customMilkteaDto) {

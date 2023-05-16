@@ -132,9 +132,9 @@ insert into Milk_tea values('MTEA37', N'Trà Quan Âm', 100, 32000, 3200,
 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Tra%20Tuoi%2Ftra_quanam.jpg?alt=media&token=84a6f370-4703-4ea6-9c91-ca9bd71105e4', 'CATE4', true); 
 insert into Milk_tea values('MTEA38', N'Trà Alishan Lạnh', 100, 32000, 3200,
 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Tra%20Tuoi%2Ftra_alishan_lanh.jpg?alt=media&token=588dbb34-de4a-4aa0-8bd3-5febbd4ab264', 'CATE4', true); 
-insert into Milk_tea values('MTEA39', N'Trà Xanh Xí Muội', 100, 32000, 3200,
+insert into Milk_tea values('MTEA39', N'Trà Xanh Xí Muội', 5, 32000, 3200,
 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Dac%20Biet%2Ftraxanh_ximuoi.jpg?alt=media&token=00cca5a9-aa19-434c-922d-3e9e8c2ea37e', 'CATE5', true); 
-insert into Milk_tea values('MTEA40', N'Trà Xanh Mật Ong Chanh', 100, 32000, 3200,
+insert into Milk_tea values('MTEA40', N'Trà Xanh Mật Ong Chanh', 4, 32000, 3200,
 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Dac%20Biet%2Ftraxanh_matongchanh.jpg?alt=media&token=46b0ca35-24ce-4cab-bfff-781a00349d44', 'CATE5', true); 
 insert into Milk_tea values('MTEA41', N'Trà Xanh Chanh Dây', 100, 32000, 3200,
 'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Dac%20Biet%2Ftraxanh_chanhday.jpg?alt=media&token=4e447656-c61d-4b4f-a1a3-0607586350de', 'CATE5', true); 

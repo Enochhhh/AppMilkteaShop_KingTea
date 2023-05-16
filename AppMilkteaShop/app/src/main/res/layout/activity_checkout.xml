@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_page"
+    tools:context=".activity.LoginActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/half_white_background"
+        android:padding="16dp"
+        android:text="Order Milktea"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.437" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="413dp"
+        android:layout_height="680dp"
+        android:background="@drawable/grey_background"
+        android:orientation="vertical"
+        android:padding="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvReceiverName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Receiver Name"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtReceiverName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Type Receiver Name"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:textColor="#8e8e8e"
+            android:textColorHint="#8e8e8e"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:inputType="phone"
+            android:text="Phone"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Type your Phone Number"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColor="#8e8e8e"
+            android:textColorHint="#8e8e8e"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Address"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Type your address"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textColor="#8e8e8e"
+            android:textColorHint="#8e8e8e"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Payment methods"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/rdCOD"
+            android:orientation="horizontal"
+            android:id="@+id/rdGroup">
+
+            <RadioButton
+                android:id="@+id/rdCOD"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="COD"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rdPaypal"
+                app:layout_constraintTop_toTopOf="@+id/rdPaypal" />
+
+            <RadioButton
+                android:id="@+id/rdPaypal"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Paypal"
+                android:textSize="18sp"
+                android:textStyle=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tvNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Note"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtNote"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Type your request"
+            android:inputType="textMultiLine"
+            android:padding="8dp"
+            android:textColor="#8e8e8e"
+            android:textColorHint="#8e8e8e"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCheckoutOrder"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/button_background_blue"
+            android:text="Order"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

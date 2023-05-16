@@ -6,6 +6,7 @@ import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.dto.ResponseTokenDto;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
+import com.example.appmilkteashop.model.Order;
 import com.example.appmilkteashop.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
-    public static final String domainApi = "http://192.168.1.150:8080/";
+    public static final String domainApi = "http://192.168.1.10:8080/";
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
@@ -68,4 +69,8 @@ public interface ApiHelper {
     @DELETE("milkteashop/kingtea/cart/deleteitem")
     Call<ResponseStringDto> deleteCartLine(@Header("Authorization") String token,
                                                 @Query("customMilkteaDto") String customMilkteaDto);
+
+    @POST("milkteashop/kingtea/order/create")
+    Call<Order> createOrder(@Header("Authorization") String token,
+                            @Body Order order);
 }

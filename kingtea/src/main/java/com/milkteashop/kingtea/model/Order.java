@@ -57,6 +57,9 @@ public class Order {
 	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
+	@Column(name = "note", length = 300)
+	private String note;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	@JsonBackReference(value = "RelationshipUserAndOrder")

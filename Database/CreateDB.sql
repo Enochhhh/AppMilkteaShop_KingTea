@@ -42,7 +42,7 @@ create table order_shop (
     date_created timestamp not null,
     payment_method nvarchar(20),
     state nvarchar(20) not null,
-    note nvarchar(150),
+    note nvarchar(300),
     user_id char(10) not null,
     enabled tinyint(1) not null,
     constraint OrderShopPrimaryKey primary key(order_id)

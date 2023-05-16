@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.milkteashop.kingtea.dto.CustomMilkteaDto;
 import com.milkteashop.kingtea.dto.ResponseStringDto;
 import com.milkteashop.kingtea.exception.NotFoundValueException;
+import com.milkteashop.kingtea.model.CartLine;
 import com.milkteashop.kingtea.service.CartLineService;
 
 @RestController
@@ -40,7 +41,13 @@ public class CartLineController {
 	@PostMapping("/addtocart")
 	public ResponseEntity<Object> addMilkteaToCart(@RequestBody CustomMilkteaDto milkteaRequest, 
 			HttpServletRequest request) {
-		cartLineService.addMilkteaToCart(milkteaRequest, request, milkteaRequest.getQuantity());
+		CartLine cartLine = cartLineService.addMilkteaToCart(milkteaRequest, request, milkteaRequest.getQuantity());
+			
+		if(cartLine == null) {
+			ResponseStringDto message = new ResponseStringDto();
+			message.setMessage("Exceeded the number of remaining products");
+			return ResponseEntity.ok(message);
+		}
 		
 		ResponseStringDto message = new ResponseStringDto();
 		message.setMessage("Updated your cart");
@@ -51,10 +58,14 @@ public class CartLineController {
 	@PostMapping("/increaseitemoncart")
 	public ResponseEntity<Object> increaseMilktea(HttpServletRequest request, 
 			@RequestBody CustomMilkteaDto milkteaRequest) {
-		cartLineService.increaseMilktea(request, milkteaRequest);
+		boolean isSuccess = cartLineService.increaseMilktea(request, milkteaRequest);
 		
 		ResponseStringDto message = new ResponseStringDto();
-		message.setMessage("Updated your cart");
+		if(!isSuccess) {
+			message.setMessage("Exceeded the number of remaining products");
+		} else {
+			message.setMessage("Updated your cart");
+		}
 		return ResponseEntity.ok(message);
 	}
 	

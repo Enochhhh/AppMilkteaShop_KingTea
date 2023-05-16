@@ -52,10 +52,10 @@ public class CartActivity extends AppCompatActivity {
         for(CustomMilkteaDto customMilkteaDto : customMilkteaDtoList) {
             totalPriceItem += customMilkteaDto.getTotalPriceOfItem() * customMilkteaDto.getQuantity();
         }
-        totalPrice.setTotalItems(String.valueOf(totalPriceItem));
+        totalPrice.setTotalItems(String.valueOf(totalPriceItem) + " VND");
         totalPrice.setDeliveryService("30000 VND");
-        totalPrice.setTax(String.valueOf((int)(0.05 * totalPriceItem)));
-        totalPrice.setTotal(String.valueOf(totalPriceItem + 30000 + (int)(totalPriceItem * 0.05)));
+        totalPrice.setTax(String.valueOf((int)(0.05 * totalPriceItem)) + " VND");
+        totalPrice.setTotal(String.valueOf(totalPriceItem + 30000 + (int)(totalPriceItem * 0.05)) + " VND");
 
         activityCartBinding.setTotalPrice(totalPrice);
     }
@@ -108,7 +108,7 @@ public class CartActivity extends AppCompatActivity {
                     if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
                         startActivity(new Intent(CartActivity.this, ExceptionActivity.class));
                     }
-                    Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(CartActivity.this, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -133,6 +133,16 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(new Intent(CartActivity.this, HomeActivity.class));
             }
         });
+
+        activityCartBinding.btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartActivity.this, CheckOutActivity.class);
+                String temp = activityCartBinding.tvFeeTotal.getText().toString();
+                intent.putExtra("totalPrice", Integer.parseInt(temp.substring(0, temp.length() - 4)));
+                startActivity(intent);
+            }
+        });
     }
 
     private void callApiUpdateToCart(String token, CustomMilkteaDto cusRequest, boolean isPlus) {
@@ -144,13 +154,15 @@ public class CartActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
                     if (response.isSuccessful()) {
+                        ResponseStringDto mes = response.body();
+                        Toast.makeText(CartActivity.this, mes.getMessage(), Toast.LENGTH_SHORT).show();
                         loadDataRcViewCart();
                     } else {
                         ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                         if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
                             startActivity(new Intent(CartActivity.this, ExceptionActivity.class));
                         }
-                        Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -171,7 +183,7 @@ public class CartActivity extends AppCompatActivity {
                         if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
                             startActivity(new Intent(CartActivity.this, ExceptionActivity.class));
                         }
-                        Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -194,7 +206,7 @@ public class CartActivity extends AppCompatActivity {
                     if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
                         startActivity(new Intent(CartActivity.this, ExceptionActivity.class));
                     }
-                    Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 
