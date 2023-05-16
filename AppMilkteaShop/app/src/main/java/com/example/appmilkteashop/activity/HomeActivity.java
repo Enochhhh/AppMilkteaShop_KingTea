@@ -1,14 +1,17 @@
 package com.example.appmilkteashop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -223,12 +226,6 @@ public class HomeActivity extends AppCompatActivity {
         imvAva = (ImageView) findViewById(R.id.imvAvatar);
         imvBanner = (ImageView) findViewById(R.id.imvBanner);
 
-        activityHomeBinding.tvBottomCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CartActivity.class));
-            }
-        });
         activityHomeBinding.imvBottomCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,5 +233,30 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        activityHomeBinding.imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSetting();
+            }
+        });
+    }
+
+    private void dialogSetting() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
+        dialog.setContentView(R.layout.setting_dialog);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        ConstraintLayout btnLogout = (ConstraintLayout) dialog.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
+                prefTokens.edit().clear().commit();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            }
+        });
+        dialog.show();
     }
 }

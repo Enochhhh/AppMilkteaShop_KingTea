@@ -72,7 +72,7 @@ public class CheckOutActivity extends AppCompatActivity {
             public void onResponse(Call<Order> call, Response<Order> response) {
                 if (response.isSuccessful()) {
                     Order milkteaList = response.body();
-                    Toast.makeText(CheckOutActivity.this, "Create Order Successfully", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(CheckOutActivity.this, SuccessfullyActivity.class));
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                     if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {

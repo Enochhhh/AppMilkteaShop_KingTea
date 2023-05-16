@@ -1,13 +1,16 @@
 package com.example.appmilkteashop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.example.appmilkteashop.R;
@@ -134,6 +137,13 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        activityCartBinding.imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSetting();
+            }
+        });
+
         activityCartBinding.btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,5 +226,24 @@ public class CartActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void dialogSetting() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
+        dialog.setContentView(R.layout.setting_dialog);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        ConstraintLayout btnLogout = (ConstraintLayout) dialog.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
+                prefTokens.edit().clear().commit();
+                startActivity(new Intent(CartActivity.this, LoginActivity.class));
+            }
+        });
+        dialog.show();
     }
 }

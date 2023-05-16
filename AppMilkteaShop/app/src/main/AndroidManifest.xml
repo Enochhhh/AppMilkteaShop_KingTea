@@ -14,7 +14,9 @@
         android:theme="@style/Theme.AppMilkteaShop"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SuccessfullyActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
@@ -30,7 +32,8 @@
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.AdminActivity" />
         <activity android:name=".activity.CartActivity" />
-        <activity android:name=".activity.CheckOutActivity"/>
+        <activity android:name=".activity.CheckOutActivity" />
+        <activity android:name=".activity.SuccessfullyActivity" />
     </application>
 
 </manifest>
