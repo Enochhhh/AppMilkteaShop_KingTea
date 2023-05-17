@@ -28,6 +28,7 @@ import com.example.appmilkteashop.dto.CustomMilkteaDto;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
 import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.helper.ApiHelper;
+import com.example.appmilkteashop.listener.ChangeActivityListener;
 import com.example.appmilkteashop.listener.ChangeNumberItemListener;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding activityHomeBinding;
     private SpecialAdapter specialAdapter;
     private CategoryAdapter categoryAdapter;
+    private TextView btnSeemore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +97,12 @@ public class HomeActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void change(boolean isPlus, CustomMilkteaDto milktea) {
-                            return;
-                        }
+                        public void change(boolean isPlus, CustomMilkteaDto milktea) {return;}
                     });
                     activityHomeBinding.rcViewSpecial.setAdapter(specialAdapter);
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
-                    if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
+                    if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {
                         startActivity(new Intent(HomeActivity.this, ExceptionActivity.class));
                     }
                     Toast.makeText(HomeActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
@@ -173,7 +173,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if (response.isSuccessful()) {
                     List<Category> listCate = response.body();
-                    categoryAdapter = new CategoryAdapter(listCate);
+                    categoryAdapter = new CategoryAdapter(listCate, new ChangeActivityListener() {
+                        @Override
+                        public void changeActivity(String categoryId) {
+                            Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);
+                            intent.putExtra("categoryId", categoryId);
+                            startActivity(intent);
+                        }
+                    });
                     activityHomeBinding.rcViewCategory.setAdapter(categoryAdapter);
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
@@ -237,6 +244,15 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialogSetting();
+            }
+        });
+
+        activityHomeBinding.tvSeemore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);
+                intent.putExtra("categoryId", "All");
+                startActivity(intent);
             }
         });
     }

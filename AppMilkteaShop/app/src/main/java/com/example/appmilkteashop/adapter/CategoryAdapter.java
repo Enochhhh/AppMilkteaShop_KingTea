@@ -1,6 +1,7 @@
 package com.example.appmilkteashop.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appmilkteashop.databinding.CategoryLineitemBinding;
+import com.example.appmilkteashop.listener.ChangeActivityListener;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.User;
 
@@ -20,9 +22,12 @@ import com.example.appmilkteashop.R;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     private List<Category> categoryList;
+    private ChangeActivityListener changeActivityListener;
 
-    public CategoryAdapter(List<Category> categoryList) {
+    public CategoryAdapter(List<Category> categoryList, ChangeActivityListener changeActivityListener) {
+
         this.categoryList = categoryList;
+        this.changeActivityListener = changeActivityListener;
     }
 
     @NonNull
@@ -35,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.CategoryViewHolder holder, int position) {
-        holder.setBinding(categoryList.get(position));
+        holder.setBinding(categoryList.get(position), position);
     }
 
     @Override
@@ -53,12 +58,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             this.categoryLineitemBinding = itemView;
         }
 
-        public void setBinding(Category category) {
+        public void setBinding(Category category, int position) {
             if (categoryLineitemBinding.getCategory() == null) {
                 categoryLineitemBinding.setCategory(this);
             }
             imgUrl.set(category.getImgUrl());
             nameCategory.set(category.getName());
+
+            categoryLineitemBinding.imvLineCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeActivityListener.changeActivity(categoryList.get(position).getCategoryId());
+                }
+            });
+
+            categoryLineitemBinding.ctLineCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeActivityListener.changeActivity(categoryList.get(position).getName());
+                }
+            });
         }
 
     }

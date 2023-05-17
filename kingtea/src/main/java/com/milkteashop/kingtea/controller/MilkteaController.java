@@ -29,4 +29,25 @@ public class MilkteaController {
 		}
 		return ResponseEntity.ok(listMilkTea);
 	}
+	
+	@GetMapping("/getall")
+	public ResponseEntity<Object> getAllMilktea() {
+		List<Milktea> milkteas = milkteaService.getAllMilktea();
+		
+		if (milkteas == null) {
+			throw new NotFoundValueException("Couldn't find any milktea", pathApi + "/getall");
+		}
+		return ResponseEntity.ok(milkteas);
+	}
+	
+	@GetMapping("/getbycategory")
+	public ResponseEntity<Object> getByCategory(@RequestParam String categoryName) {
+		System.out.println("333");
+		List<Milktea> milkteas = milkteaService.getByCategory(categoryName);
+		
+		if (milkteas == null) {
+			throw new NotFoundValueException("Couldn't find any milktea", pathApi + "/getall");
+		}
+		return ResponseEntity.ok(milkteas);
+	}
 }

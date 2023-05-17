@@ -76,4 +76,11 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/order/sendemail")
     Call<ResponseStringDto> sendMail(@Header("Authorization") String token);
+
+    @GET("milkteashop/kingtea/milktea/getall")
+    Call<List<Milktea>> getAllMilktea(@Header("Authorization") String token);
+
+    @GET("milkteashop/kingtea/milktea/getbycategory")
+    Call<List<Milktea>> getByCategoryName(@Header("Authorization") String token,
+                                      @Query("categoryName") String name);
 }

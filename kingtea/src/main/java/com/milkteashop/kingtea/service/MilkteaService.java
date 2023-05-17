@@ -43,4 +43,13 @@ public class MilkteaService {
 	public Milktea saveMilktea(Milktea milktea) {
 		return milkTeaRepository.save(milktea);
 	}
+	
+	public List<Milktea> getAllMilktea() {
+		return milkTeaRepository.findAll();
+	}
+	
+	public List<Milktea> getByCategory(String name) {
+		Category category = categoryRepository.findByName(name);
+		return milkTeaRepository.findByCategory(category);
+	}
 }

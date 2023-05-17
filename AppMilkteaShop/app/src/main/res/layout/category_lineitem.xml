@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ctLineCategory"
         android:layout_width="75dp"
         android:layout_height="100dp"
         android:layout_margin="8dp"
