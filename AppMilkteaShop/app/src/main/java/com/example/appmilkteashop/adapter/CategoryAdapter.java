@@ -75,7 +75,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             categoryLineitemBinding.ctLineCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeActivityListener.changeActivity(categoryList.get(position).getName());
+                    changeActivityListener.changeActivity(categoryList.get(position).getCategoryId());
                 }
             });
         }

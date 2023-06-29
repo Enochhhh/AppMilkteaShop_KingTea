@@ -40,6 +40,12 @@ public class CustomMilkteaService {
 				cost += 2000;
 		}
 		
+		List<Topping> toppings = customMilktea.getListTopping();
+		for (Topping topping : toppings) {
+			price += topping.getPrice();
+			cost += topping.getCost();
+		}
+		
 		customMilktea.setPrice(price);
 		customMilktea.setCost(cost);
 	}

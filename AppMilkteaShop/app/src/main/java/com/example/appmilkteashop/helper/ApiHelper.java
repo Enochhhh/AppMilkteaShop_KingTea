@@ -24,7 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
-    public static final String domainApi = "http://192.168.1.10:8080/";
+    public static final String domainApi = "http://192.168.113.1:8080/";
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();

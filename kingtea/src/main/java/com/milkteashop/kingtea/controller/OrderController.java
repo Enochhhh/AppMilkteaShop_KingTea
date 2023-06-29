@@ -41,7 +41,6 @@ public class OrderController {
 	
 	@GetMapping("/sendemail")
 	ResponseEntity<ResponseStringDto> sendEmailToCustomer(HttpServletRequest request) {
-		System.out.println("Here");
 		orderService.sendEmailToCustomer(request);
 		ResponseStringDto message = new ResponseStringDto();
 		message.setMessage("Send email successfully");
