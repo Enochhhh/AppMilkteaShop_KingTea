@@ -30,8 +30,10 @@ import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.helper.ApiHelper;
 import com.example.appmilkteashop.listener.ChangeActivityListener;
 import com.example.appmilkteashop.listener.ChangeNumberItemListener;
+import com.example.appmilkteashop.listener.ChangeToDetailActivityListener;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
+import com.example.appmilkteashop.model.Topping;
 import com.example.appmilkteashop.model.User;
 import com.google.gson.Gson;
 
@@ -98,6 +100,13 @@ public class HomeActivity extends AppCompatActivity {
 
                         @Override
                         public void change(boolean isPlus, CustomMilkteaDto milktea) {return;}
+                    }, new ChangeToDetailActivityListener() {
+                        @Override
+                        public void changeActivity(Milktea milktea) {
+                            Intent intent = new Intent(HomeActivity.this, ShowDetailActivity.class);
+                            intent.putExtra("tea_key", milktea);
+                            startActivity(intent);
+                        }
                     });
                     activityHomeBinding.rcViewSpecial.setAdapter(specialAdapter);
                 } else {
@@ -248,6 +257,15 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         activityHomeBinding.tvSeemore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);
+                intent.putExtra("categoryId", "All");
+                startActivity(intent);
+            }
+        });
+
+        activityHomeBinding.ctOrderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);

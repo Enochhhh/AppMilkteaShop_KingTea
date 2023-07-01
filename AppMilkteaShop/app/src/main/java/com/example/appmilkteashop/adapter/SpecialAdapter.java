@@ -13,7 +13,9 @@ import com.example.appmilkteashop.R;
 import com.example.appmilkteashop.databinding.CategoryLineitemBinding;
 import com.example.appmilkteashop.databinding.SpecialLineitemBinding;
 import com.example.appmilkteashop.dto.CustomMilkteaDto;
+import com.example.appmilkteashop.listener.ChangeActivityListener;
 import com.example.appmilkteashop.listener.ChangeNumberItemListener;
+import com.example.appmilkteashop.listener.ChangeToDetailActivityListener;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
 
@@ -22,10 +24,13 @@ import java.util.List;
 public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialViewHolder> {
     private List<Milktea> milkteaList;
     private ChangeNumberItemListener changeNumberItemListener;
+    private ChangeToDetailActivityListener changeToDetailActivityListener;
 
-    public SpecialAdapter(List<Milktea> milkteaList, ChangeNumberItemListener changeNumberItemListener) {
+    public SpecialAdapter(List<Milktea> milkteaList, ChangeNumberItemListener changeNumberItemListener,
+                          ChangeToDetailActivityListener changeToDetailActivityListener) {
         this.milkteaList = milkteaList;
         this.changeNumberItemListener = changeNumberItemListener;
+        this.changeToDetailActivityListener = changeToDetailActivityListener;
     }
 
     @NonNull
@@ -73,6 +78,13 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialV
                 @Override
                 public void onClick(View view) {
                     changeNumberItemListener.change(true, milkteaList.get(position));
+                }
+            });
+
+            specialLineitemBinding.imvSpecialLine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeToDetailActivityListener.changeActivity(milkteaList.get(position));
                 }
             });
         }

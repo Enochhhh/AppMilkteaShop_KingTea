@@ -118,7 +118,6 @@ create table topping (
     name nvarchar(50),
     price int,
     cost int,
-    enabled tinyint(1) not null,
     constraint ToppingPrimaryKey primary key(topping_id)
 );
 

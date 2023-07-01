@@ -1,5 +1,7 @@
 package com.example.appmilkteashop.dto;
 
+import com.example.appmilkteashop.model.Topping;
+
 import java.util.List;
 
 public class CustomMilkteaDto {

@@ -68,14 +68,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             categoryLineitemBinding.imvLineCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeActivityListener.changeActivity(categoryList.get(position).getCategoryId());
+                    changeActivityListener.changeActivity(categoryList.get(position).getName());
                 }
             });
 
             categoryLineitemBinding.ctLineCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeActivityListener.changeActivity(categoryList.get(position).getCategoryId());
+                    changeActivityListener.changeActivity(categoryList.get(position).getName());
                 }
             });
         }

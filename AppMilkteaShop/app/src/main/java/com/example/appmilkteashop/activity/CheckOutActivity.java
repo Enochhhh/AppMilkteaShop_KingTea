@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.appmilkteashop.R;
+import com.example.appmilkteashop.databinding.ActivityHomeBinding;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
 import com.example.appmilkteashop.helper.ApiHelper;
 import com.example.appmilkteashop.model.Order;
+import com.example.appmilkteashop.model.User;
 import com.google.gson.Gson;
 
 import android.content.Intent;
@@ -37,6 +39,7 @@ public class CheckOutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         Mapping();
         setEvent();
+        callApiGetUserByToken();
     }
 
     private void setEvent() {
@@ -46,6 +49,7 @@ public class CheckOutActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("TokenValue", 0);
                 String token = sharedPreferences.getString("token", "");
                 Order order = createOrderRequest();
+                if (order == null) return;
                 callApiCreateOrder("Bearer " + token, order);
             }
         });
@@ -55,6 +59,11 @@ public class CheckOutActivity extends AppCompatActivity {
         Order order = new Order();
 
         int totalPrice = getIntent().getIntExtra("totalPrice", 0);
+        if (edtReceiverName.getText().toString().equals("") || edtPhone.getText().toString().equals("")
+                    || edtAddress.getText().toString().equals("")) {
+            Toast.makeText(CheckOutActivity.this, "Please complete all information", Toast.LENGTH_SHORT).show();
+            return null;
+        }
         order.setReceiverName(edtReceiverName.getText().toString());
         order.setPhone(edtPhone.getText().toString());
         order.setAddress(edtAddress.getText().toString());
@@ -64,6 +73,35 @@ public class CheckOutActivity extends AppCompatActivity {
         order.setNote(edtNote.getText().toString());
         order.setTotalPrice(totalPrice);
         return order;
+    }
+
+    private void callApiGetUserByToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences("TokenValue", 0);
+        String token = sharedPreferences.getString("token", "");
+        token = "Bearer " + token;
+        ApiHelper.apiService.getUserByToken(token).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+
+                    edtReceiverName.setText(user.getFullName());
+                    edtPhone.setText(user.getPhone());
+                    edtAddress.setText(user.getAddress());
+                } else {
+                    ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
+                    if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
+                        startActivity(new Intent(CheckOutActivity.this, ExceptionActivity.class));
+                    }
+                    Toast.makeText(CheckOutActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(CheckOutActivity.this, "Find user unsuccessfully",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void callApiCreateOrder(String token, Order order) {
@@ -96,6 +134,6 @@ public class CheckOutActivity extends AppCompatActivity {
         edtPhone = (EditText) findViewById(R.id.edtPhone);
         edtAddress = (EditText) findViewById(R.id.edtAddress);
         radioGroup = (RadioGroup) findViewById(R.id.rdGroup);
-        edtNote = (EditText) findViewById(R.id.edtPhone);
+        edtNote = (EditText) findViewById(R.id.edtNote);
     }
 }

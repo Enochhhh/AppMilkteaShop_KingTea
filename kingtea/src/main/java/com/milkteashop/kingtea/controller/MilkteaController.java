@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.milkteashop.kingtea.exception.NotFoundValueException;
+import com.milkteashop.kingtea.model.Category;
 import com.milkteashop.kingtea.model.Milktea;
 import com.milkteashop.kingtea.service.MilkteaService;
 
@@ -42,12 +43,21 @@ public class MilkteaController {
 	
 	@GetMapping("/getbycategory")
 	public ResponseEntity<Object> getByCategory(@RequestParam String categoryName) {
-		System.out.println("333");
 		List<Milktea> milkteas = milkteaService.getByCategory(categoryName);
 		
 		if (milkteas == null) {
 			throw new NotFoundValueException("Couldn't find any milktea", pathApi + "/getall");
 		}
 		return ResponseEntity.ok(milkteas);
+	}
+	
+	@GetMapping("/getcategory")
+	public ResponseEntity<Object> getCategory(@RequestParam String milkteaId) {
+		Category category = milkteaService.getCategory(milkteaId);
+		
+		if (category == null) {
+			throw new NotFoundValueException("Couldn't find category of specified milktea", pathApi + "/getcategory");
+		}
+		return ResponseEntity.ok(category);
 	}
 }

@@ -52,4 +52,9 @@ public class MilkteaService {
 		Category category = categoryRepository.findByName(name);
 		return milkTeaRepository.findByCategory(category);
 	}
+	
+	public Category getCategory(String milkteaId) {
+		Milktea milktea = getMilkteaById(milkteaId);
+		return milktea.getCategory();
+	}
 }

@@ -53,7 +53,7 @@ public class OrderService {
 		order.setUser(user);
 		order.setEnabled(true);
 		order.setDateCreated(new Date());
-		order.setState("Chờ xác nhận");
+		order.setState("Waiting Accept");
 		order = orderRepository.save(order);
 		
 		return addDetailInformation(order);

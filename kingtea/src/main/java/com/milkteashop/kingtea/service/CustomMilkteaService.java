@@ -38,6 +38,9 @@ public class CustomMilkteaService {
 			case "XL":
 				price += 20000;
 				cost += 2000;
+				break;
+			default:
+				break;
 		}
 		
 		List<Topping> toppings = customMilktea.getListTopping();

@@ -27,6 +27,7 @@ import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.helper.ApiHelper;
 import com.example.appmilkteashop.listener.ChangeActivityListener;
 import com.example.appmilkteashop.listener.ChangeNumberItemListener;
+import com.example.appmilkteashop.listener.ChangeToDetailActivityListener;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
 import com.example.appmilkteashop.model.TotalPrice;
@@ -40,12 +41,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MilkteaByCategoryActivity extends AppCompatActivity {
-    public ObservableField<String> title = new ObservableField<>();
-
     private ActivityMilkteabycategoryBinding activityMilkteabycategoryBinding;
     private MilkteaByCategoryAdapter milkteaByCategoryAdapter;
     private List<Milktea> milkteaList;
-    private String nameCate;
+    public String nameCate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +53,8 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
         activityMilkteabycategoryBinding = DataBindingUtil.setContentView(this, R.layout.activity_milkteabycategory);
 
         nameCate = getIntent().getStringExtra("categoryId");
-        title.set(nameCate);
         activityMilkteabycategoryBinding.setMilktea(this);
+
         SetEvent();
 
         loadDataRcViewMilktea();
@@ -91,6 +90,13 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
 
                         @Override
                         public void delete(CustomMilkteaDto customMilkteaDto) {return;}
+                    }, new ChangeToDetailActivityListener(){
+                        @Override
+                        public void changeActivity(Milktea milktea) {
+                            Intent intent = new Intent(MilkteaByCategoryActivity.this, ShowDetailActivity.class);
+                            intent.putExtra("tea_key", milktea);
+                            startActivity(intent);
+                        }
                     });
                     activityMilkteabycategoryBinding.rcViewMilktea.setAdapter(milkteaByCategoryAdapter);
                 } else {
@@ -131,6 +137,13 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
                         @Override
                         public void change(boolean isPlus, CustomMilkteaDto milktea) {
                             return;
+                        }
+                    }, new ChangeToDetailActivityListener(){
+                        @Override
+                        public void changeActivity(Milktea milktea) {
+                            Intent intent = new Intent(MilkteaByCategoryActivity.this, ShowDetailActivity.class);
+                            intent.putExtra("tea_key", milktea);
+                            startActivity(intent);
                         }
                     });
                     activityMilkteabycategoryBinding.rcViewMilktea.setAdapter(milkteaByCategoryAdapter);

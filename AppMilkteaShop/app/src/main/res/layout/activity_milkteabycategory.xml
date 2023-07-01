@@ -17,7 +17,10 @@
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="690dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
                     android:paddingStart="16dp"
-                    android:text="@{milktea.title}"
+                    android:text="@{milktea.nameCate}"
                     android:textAlignment="viewStart"
                     android:textColor="#FF3D00"
                     android:textSize="30sp"
@@ -189,5 +192,4 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

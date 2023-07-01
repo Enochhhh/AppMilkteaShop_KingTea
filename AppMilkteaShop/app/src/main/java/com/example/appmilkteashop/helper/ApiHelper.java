@@ -7,6 +7,7 @@ import com.example.appmilkteashop.dto.ResponseTokenDto;
 import com.example.appmilkteashop.model.Category;
 import com.example.appmilkteashop.model.Milktea;
 import com.example.appmilkteashop.model.Order;
+import com.example.appmilkteashop.model.Topping;
 import com.example.appmilkteashop.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -83,4 +84,11 @@ public interface ApiHelper {
     @GET("milkteashop/kingtea/milktea/getbycategory")
     Call<List<Milktea>> getByCategoryName(@Header("Authorization") String token,
                                       @Query("categoryName") String name);
+
+    @GET("milkteashop/kingtea/milktea/getcategory")
+    Call<Category> getCategoryOfMilktea(@Header("Authorization") String token,
+                                        @Query("milkteaId") String milkTeaId);
+
+    @GET("milkteashop/kingtea/topping/getall")
+    Call<List<Topping>> getAllToppings(@Header("Authorization") String token);
 }

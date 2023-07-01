@@ -2,6 +2,7 @@ package com.milkteashop.kingtea.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -54,7 +55,7 @@ public class CustomMilktea {
 	@Column(name = "enabled", nullable = false, columnDefinition = "TINYINT(1)")
 	private boolean enabled;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "add_on_milktea",
 			joinColumns = @JoinColumn(name = "custom_milktea_id"),

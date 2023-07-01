@@ -79,7 +79,7 @@
             android:background="@drawable/edittext_background"
             android:ems="10"
             android:hint="Type your Phone Number"
-            android:inputType="textPassword"
+            android:inputType="number|phone"
             android:padding="8dp"
             android:textColor="#8e8e8e"
             android:textColorHint="#8e8e8e"

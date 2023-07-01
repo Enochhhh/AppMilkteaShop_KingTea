@@ -37,23 +37,23 @@ insert into category values('CATE6', N'Kem Tuyết',
     'https://firebasestorage.googleapis.com/v0/b/projectooad-651f1.appspot.com/o/Android%20Category%20Image%2Fsnow_ice_cream.png?alt=media&token=2e549324-c56c-4489-93f9-e72b3fa01063', true);
     
 
-insert into topping values('TP1', N'Thạch Sữa Tươi', 5000, 500, true);
-insert into topping values('TP2', N'Thạch Sương Sáo', 5000, 500, true);
-insert into topping values('TP3', N'Thạch Sô Cô La', 5000, 500, true);
-insert into topping values('TP4', N'Thủy tinh Kiwi', 8000, 800, true);
-insert into topping values('TP5', N'Thạch Flan', 5000, 500, true);
-insert into topping values('TP6', N'Trân Châu Đen', 8000, 800, true);
-insert into topping values('TP7', N'Thủy Tinh Chanh Dây', 8000, 800, true);
-insert into topping values('TP8', N'Nha Đam', 5000, 500, true);
-insert into topping values('TP9', N'Sủi Bọt', 15000, 1500, true);
-insert into topping values('TP10', N'Hạt Trái Cây', 8000, 800, true);
-insert into topping values('TP11', N'Thủy Tinh Dâu', 8000, 800, true);
-insert into topping values('TP12', N'Sủi Bọt Phô Mai', 15000, 1500, true);
-insert into topping values('TP13', N'Hạt Đẹp', 10000, 1000, true);
-insert into topping values('TP14', N'Hạt Đường Đen', 10000, 1000, true);
-insert into topping values('TP15', N'Thủy Tinh Ya-ua', 8000, 800, true);
-insert into topping values('TP16', N'Thủy Tinh Nguyên Vị', 8000, 800, true);
-insert into topping values('TP17', N'Thủy Tinh Vải', 8000, 800, true);
+insert into topping values('TP1', N'Thạch Sữa Tươi', 5000, 500);
+insert into topping values('TP2', N'Thạch Sương Sáo', 5000, 500);
+insert into topping values('TP3', N'Thạch Sô Cô La', 5000, 500);
+insert into topping values('TP4', N'Thủy tinh Kiwi', 8000, 800);
+insert into topping values('TP5', N'Thạch Flan', 5000, 500);
+insert into topping values('TP6', N'Trân Châu Đen', 8000, 800);
+insert into topping values('TP7', N'Thủy Tinh Chanh Dây', 8000, 800);
+insert into topping values('TP8', N'Nha Đam', 5000, 500);
+insert into topping values('TP9', N'Sủi Bọt', 15000, 1500);
+insert into topping values('TP10', N'Hạt Trái Cây', 8000, 800);
+insert into topping values('TP11', N'Thủy Tinh Dâu', 8000, 800);
+insert into topping values('TP12', N'Sủi Bọt Phô Mai', 15000, 1500);
+insert into topping values('TP13', N'Hạt Đẹp', 10000, 1000);
+insert into topping values('TP14', N'Hạt Đường Đen', 10000, 1000);
+insert into topping values('TP15', N'Thủy Tinh Ya-ua', 8000, 800);
+insert into topping values('TP16', N'Thủy Tinh Nguyên Vị', 8000, 800);
+insert into topping values('TP17', N'Thủy Tinh Vải', 8000, 800);
 
 
 insert into Milk_tea values('MTEA1', N'Trà Bí Đao Sủi Bọt', 100, 36000, 3600,

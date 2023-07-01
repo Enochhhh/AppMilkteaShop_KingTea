@@ -13,6 +13,7 @@ import com.example.appmilkteashop.R;
 import com.example.appmilkteashop.databinding.CartLineitemBinding;
 import com.example.appmilkteashop.dto.CustomMilkteaDto;
 import com.example.appmilkteashop.listener.ChangeNumberItemListener;
+import com.example.appmilkteashop.model.Topping;
 
 import java.util.List;
 
@@ -64,7 +65,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             title.set(customMilkteaDto.getNameMilktea());
             quantity.set(String.valueOf(customMilkteaDto.getQuantity()));
 
-            String detail = "Lượng Đá: " + customMilkteaDto.getIceAmount() + ", Lượng Đường: " + customMilkteaDto.getSugarAmount() +
+            String detail = "Price: " + String.valueOf(customMilkteaDto.getTotalPriceOfItem()) + " VND"
+                    + "\nSize " + customMilkteaDto.getSize()
+                    + ", Ice: " + customMilkteaDto.getIceAmount() + ", Sugar: "
+                    + customMilkteaDto.getSugarAmount() +
                     "\n" + "Toppings: ";
             List<String> toppingsList = customMilkteaDto.getListTopping();
             for (String name : toppingsList) {
@@ -72,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
             toppings.set(detail.substring(0, detail.length() - 2));
             
-            price.set(String.valueOf(customMilkteaDto.getTotalPriceOfItem()) + " VND");
+            price.set(String.valueOf(customMilkteaDto.getTotalPriceOfItem() * customMilkteaDto.getQuantity()) + " VND");
 
             cartLineitemBinding.plusCartBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

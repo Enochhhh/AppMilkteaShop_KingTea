@@ -134,14 +134,14 @@ public class CartLineService {
 	
 	private int calculateTotalPrice(CustomMilktea customMilktea, int quantity) {
 		int price = customMilktea.getPrice();
+		/* Comment this code because price of toppings were added to price of custommilktea
 		List<Topping> toppings = customMilktea.getListTopping();
-		
 		if (toppings == null) {
 			return price;
 		}
 		for (Topping topping : toppings) {
 			price += topping.getPrice();
-		}
+		} */
 		
 		return price * quantity;
 	}

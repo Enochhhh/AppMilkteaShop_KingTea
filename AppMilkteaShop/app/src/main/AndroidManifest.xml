@@ -15,7 +15,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
-
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
@@ -34,6 +33,7 @@
         <activity android:name=".activity.CheckOutActivity" />
         <activity android:name=".activity.SuccessfullyActivity" />
         <activity android:name=".activity.MilkteaByCategoryActivity" />
+        <activity android:name=".activity.ShowDetailActivity" />
     </application>
 
 </manifest>
