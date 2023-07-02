@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.example.appmilkteashop.R;
 import com.example.appmilkteashop.databinding.ActivityHomeBinding;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
+import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.helper.ApiHelper;
 import com.example.appmilkteashop.model.Order;
 import com.example.appmilkteashop.model.User;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -50,7 +52,34 @@ public class CheckOutActivity extends AppCompatActivity {
                 String token = sharedPreferences.getString("token", "");
                 Order order = createOrderRequest();
                 if (order == null) return;
+
                 callApiCreateOrder("Bearer " + token, order);
+            }
+        });
+    }
+
+    private void callApiPayPal(String token, Order order) {
+        ApiHelper.apiService.paypalPayment(token, order).enqueue(new Callback<ResponseStringDto>() {
+            @Override
+            public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
+                if (response.isSuccessful()) {
+                    ResponseStringDto stringDto = response.body();
+                    Uri uri = Uri.parse(stringDto.getMessage()); // missing 'http://' will cause crashed
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                } else {
+                    ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
+                    if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
+                        startActivity(new Intent(CheckOutActivity.this, ExceptionActivity.class));
+                    }
+                    Toast.makeText(CheckOutActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseStringDto> call, Throwable t) {
+                Toast.makeText(CheckOutActivity.this, "Payment unsuccessfully",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -109,8 +138,10 @@ public class CheckOutActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
                 if (response.isSuccessful()) {
-                    Order milkteaList = response.body();
-                    startActivity(new Intent(CheckOutActivity.this, SuccessfullyActivity.class));
+                    Order orderRes = response.body();
+                    Intent intent = new Intent(CheckOutActivity.this, SuccessfullyActivity.class);
+                    intent.putExtra("order_key", orderRes);
+                    startActivity(intent);
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                     if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {

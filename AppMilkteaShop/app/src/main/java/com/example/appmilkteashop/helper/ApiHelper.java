@@ -91,4 +91,7 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/topping/getall")
     Call<List<Topping>> getAllToppings(@Header("Authorization") String token);
+
+    @POST("milkteashop/kingtea/paypal/pay")
+    Call<ResponseStringDto> paypalPayment(@Header("Authorization") String token, @Body Order order);
 }

@@ -1,6 +1,5 @@
 package com.milkteashop.kingtea.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.milkteashop.kingtea.config.JwtUtils;
 import com.milkteashop.kingtea.model.CartLine;
-import com.milkteashop.kingtea.model.Milktea;
 import com.milkteashop.kingtea.model.Order;
 import com.milkteashop.kingtea.model.OrderLine;
 import com.milkteashop.kingtea.model.User;
@@ -40,20 +38,14 @@ public class OrderService {
 			return null;
 		}
 		
-		if(order.getReceiverName().equals("")) {
-			order.setReceiverName(user.getFullName());
-		}
-		if(order.getPhone().equals("")) {
-			order.setPhone(user.getPhone());
-		}
-		if(order.getAddress().equals("")) {
-			order.setAddress(user.getAddress());
-		}
-		
 		order.setUser(user);
 		order.setEnabled(true);
 		order.setDateCreated(new Date());
-		order.setState("Waiting Accept");
+		if (order.getPaymentMethod().equals("COD")) {
+			order.setState("Waiting Accept");
+		} else {
+			order.setState("Unpaid Order");
+		}
 		order = orderRepository.save(order);
 		
 		return addDetailInformation(order);
@@ -66,7 +58,7 @@ public class OrderService {
 		}
 		
 		int totalCost = 0;
-		List<Milktea> milkteas = new ArrayList<>();
+		// List<Milktea> milkteas = new ArrayList<>();
 		for(CartLine cartLine : cartLines) {
 			OrderLine orderLine = new OrderLine();
 			orderLine.setOrder(order);
@@ -75,6 +67,7 @@ public class OrderService {
 			orderLine.setTotalCostOnLine(cartLine.getTotalCostOnLine());
 			orderLine.setTotalPriceOnLine(cartLine.getTotalPriceOnLine());
 			
+			/*
 			// Abstract quantity of Milktea is available in DB
 			Milktea milktea = orderLine.getCustomMilktea().getMilkTea();
 			if (milktea.getQuantity() < orderLine.getQuantity()) {
@@ -86,12 +79,15 @@ public class OrderService {
 				}
 				return null;
 			}
-			milkteas.add(milktea);
+			// Add to 1 code check if milktea is existed in list, we don't add milktea to it
+			***** This place will be added code ******
+
+			milkteas.add(milktea); 
 			milktea.setQuantity(milktea.getQuantity() - orderLine.getQuantity());
 			if (milktea.getQuantity() == 0) {
 				milktea.setEnabled(false);
 			}
-			milkTeaRepository.save(milktea);
+			milkTeaRepository.save(milktea);*/
 			
 			orderLineRepository.save(orderLine);
 			
@@ -121,5 +117,9 @@ public class OrderService {
 						+ "<p>We look forward to seeing you in the shop again. Have a good day.</p>";
 		body.concat("<p>We look forward to seeing you in the shop again. Have a good day.</p>");
 		mailSenderService.sendEmail(user.getEmail(), subject, body);
+	}
+	
+	public Order saveOrder(Order order) {
+		return orderRepository.save(order);
 	}
 }

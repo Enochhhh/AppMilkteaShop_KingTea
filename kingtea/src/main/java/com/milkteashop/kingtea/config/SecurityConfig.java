@@ -29,6 +29,7 @@ public class SecurityConfig {
 			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/**/authentication/**").permitAll()
+			.antMatchers("/**/paypal/**").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
