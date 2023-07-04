@@ -65,7 +65,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             title.set(customMilkteaDto.getNameMilktea());
             quantity.set(String.valueOf(customMilkteaDto.getQuantity()));
 
-            String detail = "Price: " + String.valueOf(customMilkteaDto.getTotalPriceOfItem()) + " VND"
+            String detail = "Price: " + String.valueOf(customMilkteaDto.getTotalPriceOfItem()) + "₫"
                     + "\nSize " + customMilkteaDto.getSize()
                     + ", Ice: " + customMilkteaDto.getIceAmount() + ", Sugar: "
                     + customMilkteaDto.getSugarAmount() +
@@ -76,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
             toppings.set(detail.substring(0, detail.length() - 2));
             
-            price.set(String.valueOf(customMilkteaDto.getTotalPriceOfItem() * customMilkteaDto.getQuantity()) + " VND");
+            price.set(String.valueOf(customMilkteaDto.getTotalPriceOfItem() * customMilkteaDto.getQuantity()) + "₫");
 
             cartLineitemBinding.plusCartBtn.setOnClickListener(new View.OnClickListener() {
                 @Override

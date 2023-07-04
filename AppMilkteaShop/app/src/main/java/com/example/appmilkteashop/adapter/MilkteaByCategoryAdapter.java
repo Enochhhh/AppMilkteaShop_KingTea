@@ -68,7 +68,7 @@ public class MilkteaByCategoryAdapter extends RecyclerView.Adapter<MilkteaByCate
             imgUrl.set(milktea.getImgUrl());
             title.set(milktea.getName());
             quantity.set(String.valueOf(milktea.getQuantity()));
-            price.set(String.valueOf(milktea.getPrice()) + " VND");
+            price.set(String.valueOf(milktea.getPrice()) + "₫");
 
             milkteaLineitemBinding.btnAddMilkteaByCate.setOnClickListener(new View.OnClickListener() {
                 @Override

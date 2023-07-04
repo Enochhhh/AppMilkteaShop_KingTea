@@ -3,10 +3,12 @@ package com.example.appmilkteashop.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, ExceptionActivity.class));
                     }
                     Toast.makeText(LoginActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    dialogLoginFail();
                     return;
                 }
             }
@@ -101,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseTokenDto> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Login Unsuccessfully",
                         Toast.LENGTH_LONG).show();
+                dialogLoginFail();
             }
         });
     }
@@ -110,5 +114,15 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = (TextView) findViewById(R.id.tv_signup);
         edUsername = (EditText) findViewById(R.id.editTextUsernameLogin);
         edPass = (EditText) findViewById(R.id.editTextPassLogin);
+    }
+
+    private void dialogLoginFail() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
+        dialog.setContentView(R.layout.login_fail_dialog);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        dialog.show();
     }
 }

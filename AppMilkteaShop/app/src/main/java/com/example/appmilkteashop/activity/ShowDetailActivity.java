@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,9 +52,9 @@ public class ShowDetailActivity extends AppCompatActivity {
     ImageView subItem;
     TextView priceDetail;
     TextView title;
-    ImageView imvBottomCart;
-    ImageView imvBottomSetting;
-    ImageView imvBottomHome;
+    LinearLayout btnCart;
+    LinearLayout btnSetting;
+    LinearLayout btnHome;
     TextView btnAddToCart;
     Milktea milktea;
 
@@ -76,8 +77,8 @@ public class ShowDetailActivity extends AppCompatActivity {
                 .into(foodPic);
         // Load description
         int quantity = Integer.parseInt(txtNumberItem.getText().toString());
-        totalPriceDetail.setText(String.valueOf(milktea.getPrice() * quantity) + " VND");
-        priceDetail.setText(String.valueOf(milktea.getPrice()) + " VND");
+        totalPriceDetail.setText(String.valueOf(milktea.getPrice() * quantity) + "₫");
+        priceDetail.setText(String.valueOf(milktea.getPrice()) + "₫");
         title.setText(milktea.getName());
 
         toppings = callApiGetAllTopping();
@@ -219,9 +220,9 @@ public class ShowDetailActivity extends AppCompatActivity {
         subItem = (ImageView) findViewById(R.id.minusCartBtn);
         priceDetail = (TextView) findViewById(R.id.priceDetailTxt);
         title = (TextView) findViewById(R.id.txtTitleDetail);
-        imvBottomCart = (ImageView) findViewById(R.id.imvBottomCart);
-        imvBottomSetting = (ImageView) findViewById(R.id.imvBottomSetting);
-        imvBottomHome = (ImageView) findViewById(R.id.imvBottomHome);
+        btnCart = (LinearLayout) findViewById(R.id.cartBtn);
+        btnSetting = (LinearLayout) findViewById(R.id.settingBtn);
+        btnHome = (LinearLayout) findViewById(R.id.homeBtn);
         btnAddToCart = (TextView) findViewById(R.id.btnAddToCartDetail);
     }
 
@@ -233,8 +234,8 @@ public class ShowDetailActivity extends AppCompatActivity {
                 txtNumberItem.setText(String.valueOf(quantity));
 
                 String price_string = priceDetail.getText().toString();
-                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 4));
-                totalPriceDetail.setText(String.valueOf(price * quantity) + " VND");
+                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 1));
+                totalPriceDetail.setText(String.valueOf(price * quantity) + "₫");
             }
         });
 
@@ -247,8 +248,8 @@ public class ShowDetailActivity extends AppCompatActivity {
                 }
                 txtNumberItem.setText(String.valueOf(quantity));
                 String price_string = priceDetail.getText().toString();
-                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 4));
-                totalPriceDetail.setText(String.valueOf(price * quantity) + " VND");
+                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 1));
+                totalPriceDetail.setText(String.valueOf(price * quantity) + "₫");
             }
         });
 
@@ -257,7 +258,7 @@ public class ShowDetailActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String size = (String) adapterView.getItemAtPosition(i);
                 String price_string = priceDetail.getText().toString();
-                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 4));
+                int price = Integer.parseInt(price_string.substring(0, price_string.length() - 1));
                 int quantity = Integer.parseInt(txtNumberItem.getText().toString());
 
                 switch (size) {
@@ -265,8 +266,8 @@ public class ShowDetailActivity extends AppCompatActivity {
                     case "XL": price = milktea.getPrice() + 20000; break;
                     default: price = milktea.getPrice();
                 }
-                totalPriceDetail.setText(String.valueOf(price * quantity) + " VND");
-                priceDetail.setText(String.valueOf(price ) + " VND");
+                totalPriceDetail.setText(String.valueOf(price * quantity) + "₫");
+                priceDetail.setText(String.valueOf(price ) + "₫");
             }
 
             @Override
@@ -275,21 +276,21 @@ public class ShowDetailActivity extends AppCompatActivity {
             }
         });
 
-        imvBottomCart.setOnClickListener(new View.OnClickListener() {
+        btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowDetailActivity.this, CartActivity.class));
             }
         });
 
-        imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+        btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogSetting();
             }
         });
 
-        imvBottomHome.setOnClickListener(new View.OnClickListener() {
+        btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowDetailActivity.this, HomeActivity.class));
@@ -320,6 +321,15 @@ public class ShowDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(ShowDetailActivity.this, LoginActivity.class));
             }
         });
+
+        ConstraintLayout btnOrder = (ConstraintLayout) dialog.findViewById(R.id.btnOrder);
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowDetailActivity.this, OrderManagementActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

@@ -29,38 +29,39 @@
         <activity android:name=".activity.ExceptionActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.AdminActivity" />
-
-        <activity android:name=".activity.CartActivity"
+        <activity
+            android:name=".activity.OrderManagementActivity"
             android:exported="true">
             <intent-filter>
+
                 <!-- below line is to set the action to our intent to view -->
                 <action android:name="android.intent.action.VIEW" />
                 <!-- on below line we are adding a default category to our intent -->
                 <category android:name="android.intent.category.DEFAULT" />
                 <!-- on below line we are adding a category to make our app browsable -->
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.checkoutpage.com"
                     android:scheme="https" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.checkoutpage.com"
                     android:scheme="http" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.CheckOutActivity" />
-
         <activity android:name=".activity.SuccessfullyActivity" />
-
         <activity android:name=".activity.MilkteaByCategoryActivity" />
         <activity android:name=".activity.ShowDetailActivity" />
+        <activity android:name=".activity.CartActivity" />
+        <activity android:name=".activity.OrderDetailActivity" />
     </application>
 
 </manifest>

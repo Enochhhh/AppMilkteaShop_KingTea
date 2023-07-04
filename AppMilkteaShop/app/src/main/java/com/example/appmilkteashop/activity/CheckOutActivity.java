@@ -58,32 +58,6 @@ public class CheckOutActivity extends AppCompatActivity {
         });
     }
 
-    private void callApiPayPal(String token, Order order) {
-        ApiHelper.apiService.paypalPayment(token, order).enqueue(new Callback<ResponseStringDto>() {
-            @Override
-            public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
-                if (response.isSuccessful()) {
-                    ResponseStringDto stringDto = response.body();
-                    Uri uri = Uri.parse(stringDto.getMessage()); // missing 'http://' will cause crashed
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                } else {
-                    ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
-                    if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
-                        startActivity(new Intent(CheckOutActivity.this, ExceptionActivity.class));
-                    }
-                    Toast.makeText(CheckOutActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseStringDto> call, Throwable t) {
-                Toast.makeText(CheckOutActivity.this, "Payment unsuccessfully",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     private Order createOrderRequest() {
         Order order = new Order();
 

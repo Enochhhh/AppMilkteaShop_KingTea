@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="milktea"
-            type="com.example.appmilkteashop.activity.MilkteaByCategoryActivity" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,14 +28,14 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
                     android:paddingStart="16dp"
-                    android:text="@{milktea.nameCate}"
+                    android:text="Order Management"
                     android:textAlignment="viewStart"
                     android:textColor="#FF3D00"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcViewMilktea"
+                    android:id="@+id/rcViewOrder"
                     android:layout_width="match_parent"
                     android:layout_height="701dp" />
 
@@ -96,7 +90,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/btnProfile"
+                        android:id="@+id/profileBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -119,7 +113,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/btnCartBottom"
+                        android:id="@+id/cartBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -144,7 +138,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/btnSupport"
+                        android:id="@+id/supportBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -168,7 +162,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/btnSetting"
+                        android:id="@+id/settingBtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"

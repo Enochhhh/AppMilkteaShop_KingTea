@@ -92,9 +92,9 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
                         public void delete(CustomMilkteaDto customMilkteaDto) {return;}
                     }, new ChangeToDetailActivityListener(){
                         @Override
-                        public void changeActivity(Milktea milktea) {
+                        public void changeActivity(Object milktea) {
                             Intent intent = new Intent(MilkteaByCategoryActivity.this, ShowDetailActivity.class);
-                            intent.putExtra("tea_key", milktea);
+                            intent.putExtra("tea_key", (Milktea) milktea);
                             startActivity(intent);
                         }
                     });
@@ -140,9 +140,9 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
                         }
                     }, new ChangeToDetailActivityListener(){
                         @Override
-                        public void changeActivity(Milktea milktea) {
+                        public void changeActivity(Object milktea) {
                             Intent intent = new Intent(MilkteaByCategoryActivity.this, ShowDetailActivity.class);
-                            intent.putExtra("tea_key", milktea);
+                            intent.putExtra("tea_key", (Milktea) milktea);
                             startActivity(intent);
                         }
                     });
@@ -201,27 +201,21 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
     }
 
     private void SetEvent() {
-        activityMilkteabycategoryBinding.tvBottomHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MilkteaByCategoryActivity.this, HomeActivity.class));
-            }
-        });
-        activityMilkteabycategoryBinding.imvBottomHome.setOnClickListener(new View.OnClickListener() {
+        activityMilkteabycategoryBinding.homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MilkteaByCategoryActivity.this, HomeActivity.class));
             }
         });
 
-        activityMilkteabycategoryBinding.imvBottomCart.setOnClickListener(new View.OnClickListener() {
+        activityMilkteabycategoryBinding.btnCartBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MilkteaByCategoryActivity.this, CartActivity.class));
             }
         });
 
-        activityMilkteabycategoryBinding.imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+        activityMilkteabycategoryBinding.btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogSetting();
@@ -238,12 +232,22 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(true);
 
         ConstraintLayout btnLogout = (ConstraintLayout) dialog.findViewById(R.id.btnLogout);
+
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
                 prefTokens.edit().clear().commit();
                 startActivity(new Intent(MilkteaByCategoryActivity.this, LoginActivity.class));
+            }
+        });
+
+        ConstraintLayout btnOrder = (ConstraintLayout) dialog.findViewById(R.id.btnOrder);
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MilkteaByCategoryActivity.this, OrderManagementActivity.class));
             }
         });
         dialog.show();

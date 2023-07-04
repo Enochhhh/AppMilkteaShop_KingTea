@@ -10,11 +10,16 @@ public class Order implements Serializable {
     private String address;
     private int totalPrice;
     private int totalCost;
-    // private Date dateCreated;
+    private Date dateCreated;
     private String paymentMethod;
     private String state;
     private String note;
+
     private boolean enabled;
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getOrderId() {
         return orderId;
@@ -89,11 +94,15 @@ public class Order implements Serializable {
         this.note = note;
     }
 
-    public boolean getEnabled() {
-        return enabled;
+    public Date getDateCreated() {
+        return dateCreated;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 }

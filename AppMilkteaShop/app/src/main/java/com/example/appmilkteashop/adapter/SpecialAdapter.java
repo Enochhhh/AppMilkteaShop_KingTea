@@ -72,7 +72,7 @@ public class SpecialAdapter extends RecyclerView.Adapter<SpecialAdapter.SpecialV
             }
             imgUrl.set(milktea.getImgUrl());
             name.set(milktea.getName());
-            price.set(String.valueOf(milktea.getPrice()) + "\n  VND");
+            price.set(String.valueOf(milktea.getPrice()) + "₫");
 
             specialLineitemBinding.addBtnHome.setOnClickListener(new View.OnClickListener() {
                 @Override

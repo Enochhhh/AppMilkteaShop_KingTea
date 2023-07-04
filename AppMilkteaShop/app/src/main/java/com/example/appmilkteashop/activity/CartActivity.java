@@ -55,10 +55,10 @@ public class CartActivity extends AppCompatActivity {
         for(CustomMilkteaDto customMilkteaDto : customMilkteaDtoList) {
             totalPriceItem += customMilkteaDto.getTotalPriceOfItem() * customMilkteaDto.getQuantity();
         }
-        totalPrice.setTotalItems(String.valueOf(totalPriceItem) + " VND");
-        totalPrice.setDeliveryService("30000 VND");
-        totalPrice.setTax(String.valueOf((int)(0.05 * totalPriceItem)) + " VND");
-        totalPrice.setTotal(String.valueOf(totalPriceItem + 30000 + (int)(totalPriceItem * 0.05)) + " VND");
+        totalPrice.setTotalItems(String.valueOf(totalPriceItem) + "₫");
+        totalPrice.setDeliveryService("30000₫");
+        totalPrice.setTax(String.valueOf((int)(0.05 * totalPriceItem)) + "₫");
+        totalPrice.setTotal(String.valueOf(totalPriceItem + 30000 + (int)(totalPriceItem * 0.05)) + "₫");
 
         activityCartBinding.setTotalPrice(totalPrice);
     }
@@ -124,20 +124,14 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void SetEvent() {
-        activityCartBinding.tvBottomHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, HomeActivity.class));
-            }
-        });
-        activityCartBinding.imvBottomHome.setOnClickListener(new View.OnClickListener() {
+        activityCartBinding.homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CartActivity.this, HomeActivity.class));
             }
         });
 
-        activityCartBinding.imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+        activityCartBinding.settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogSetting();
@@ -149,7 +143,7 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CartActivity.this, CheckOutActivity.class);
                 String temp = activityCartBinding.tvFeeTotal.getText().toString();
-                intent.putExtra("totalPrice", Integer.parseInt(temp.substring(0, temp.length() - 4)));
+                intent.putExtra("totalPrice", Integer.parseInt(temp.substring(0, temp.length() - 1)));
                 startActivity(intent);
             }
         });
@@ -242,6 +236,14 @@ public class CartActivity extends AppCompatActivity {
                 SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
                 prefTokens.edit().clear().commit();
                 startActivity(new Intent(CartActivity.this, LoginActivity.class));
+            }
+        });
+
+        ConstraintLayout btnOrder = (ConstraintLayout) dialog.findViewById(R.id.btnOrder);
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, OrderManagementActivity.class));
             }
         });
         dialog.show();

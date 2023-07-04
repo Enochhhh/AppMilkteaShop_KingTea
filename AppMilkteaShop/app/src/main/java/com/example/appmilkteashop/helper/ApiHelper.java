@@ -22,6 +22,8 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiHelper {
@@ -94,4 +96,16 @@ public interface ApiHelper {
 
     @POST("milkteashop/kingtea/paypal/pay")
     Call<ResponseStringDto> paypalPayment(@Header("Authorization") String token, @Body Order order);
+
+    @GET("milkteashop/kingtea/order/getbytoken")
+    Call<List<Order>> getAllOrderOfUser(@Header("Authorization") String token);
+
+    @GET("milkteashop/kingtea/order/getimageorder")
+    Call<ResponseStringDto> getImageOrder(@Header("Authorization") String token, @Query("orderId") String orderId);
+
+    @PUT("milkteashop/kingtea/order/cancel/{orderId}")
+    Call<ResponseStringDto> cancelOrder(@Header("Authorization") String token, @Path("orderId") String orderId);
+
+    @GET("milkteashop/kingtea/order/getmilktea")
+    Call<List<CustomMilkteaDto>> getMilkteaInOrder(@Header("Authorization") String token, @Query("orderId") String orderId);
 }

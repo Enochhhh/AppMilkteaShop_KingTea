@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.52"
-            tools:textStyle="bold" />
+            android:textStyle="bold" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.52"
-            tools:textStyle="bold" />
+            android:textStyle="bold" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.52"
-            tools:textStyle="bold" />
+            android:textStyle="bold" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -132,5 +132,5 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/btnLogout"
         app:layout_constraintTop_toTopOf="parent"
-        tools:textStyle="bold" />
+        android:textStyle="bold" />
 </androidx.constraintlayout.widget.ConstraintLayout>

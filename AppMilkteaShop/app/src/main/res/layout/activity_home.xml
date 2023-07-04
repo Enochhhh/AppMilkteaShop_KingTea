@@ -275,6 +275,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnProfile"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -297,6 +298,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnCart"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -321,6 +323,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnSupport"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -344,6 +347,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/btnSetting"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"

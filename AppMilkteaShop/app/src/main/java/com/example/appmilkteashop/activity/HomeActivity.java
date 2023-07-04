@@ -102,9 +102,9 @@ public class HomeActivity extends AppCompatActivity {
                         public void change(boolean isPlus, CustomMilkteaDto milktea) {return;}
                     }, new ChangeToDetailActivityListener() {
                         @Override
-                        public void changeActivity(Milktea milktea) {
+                        public void changeActivity(Object milktea) {
                             Intent intent = new Intent(HomeActivity.this, ShowDetailActivity.class);
-                            intent.putExtra("tea_key", milktea);
+                            intent.putExtra("tea_key", (Milktea) milktea);
                             startActivity(intent);
                         }
                     });
@@ -242,14 +242,14 @@ public class HomeActivity extends AppCompatActivity {
         imvAva = (ImageView) findViewById(R.id.imvAvatar);
         imvBanner = (ImageView) findViewById(R.id.imvBanner);
 
-        activityHomeBinding.imvBottomCart.setOnClickListener(new View.OnClickListener() {
+        activityHomeBinding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, CartActivity.class));
             }
         });
 
-        activityHomeBinding.imvBottomSetting.setOnClickListener(new View.OnClickListener() {
+        activityHomeBinding.btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogSetting();
@@ -291,6 +291,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             }
         });
+
+        ConstraintLayout btnOrder = (ConstraintLayout) dialog.findViewById(R.id.btnOrder);
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, OrderManagementActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

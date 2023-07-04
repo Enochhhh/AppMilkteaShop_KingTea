@@ -1,5 +1,6 @@
 package com.milkteashop.kingtea.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.milkteashop.kingtea.config.JwtUtils;
+import com.milkteashop.kingtea.dto.CustomMilkteaDto;
 import com.milkteashop.kingtea.model.CartLine;
+import com.milkteashop.kingtea.model.CustomMilktea;
 import com.milkteashop.kingtea.model.Order;
 import com.milkteashop.kingtea.model.OrderLine;
+import com.milkteashop.kingtea.model.Topping;
 import com.milkteashop.kingtea.model.User;
 import com.milkteashop.kingtea.repository.CartLineRepository;
 import com.milkteashop.kingtea.repository.MilkTeaRepository;
@@ -121,5 +125,76 @@ public class OrderService {
 	
 	public Order saveOrder(Order order) {
 		return orderRepository.save(order);
+	}
+	
+	public List<Order> getOrdersByToken(HttpServletRequest request) {
+		String token = request.getHeader("Authorization").substring(7);
+		User user = userRepository.findById(jwtUtils.extractUserId(token)).orElse(null);
+		if (user == null) {
+			return null;
+		}
+		
+		return orderRepository.findByUserAndEnabledTrueOrderByDateCreatedDesc(user);
+	}
+	
+	public String getImageOrder(String orderId) {
+		Order order = getOrder(orderId);
+		
+		if (order == null) {
+			return null;
+		}
+		
+		List<OrderLine> orderLines = order.getListOrderLine();
+		return orderLines.get(0).getCustomMilktea().getMilkTea().getImgUrl();
+	}
+	
+	public Order cancelOrder(String orderId) {
+		Order order = getOrder(orderId);
+		
+		if (order == null) {
+			return null;
+		}
+		
+		order.setState("Cancelled");
+		return orderRepository.save(order);
+	}
+	
+	public List<CustomMilkteaDto> getMilkteaInOrder(String orderId) {
+		Order order = getOrder(orderId);
+		
+		if (order == null) {
+			return null;
+		}
+		
+		List<OrderLine> orderLines = order.getListOrderLine();
+		
+		List<CustomMilkteaDto> listMilktea = new ArrayList<>();
+		for (OrderLine orderLine : orderLines) {
+			CustomMilkteaDto customMilkteaDto = convertCustomMilkTeaEntityToDto(orderLine.getCustomMilktea());
+			customMilkteaDto.setTotalPriceOfItem(orderLine.getTotalPriceOnLine() / orderLine.getQuantity());
+			customMilkteaDto.setQuantity(orderLine.getQuantity());
+			listMilktea.add(customMilkteaDto);
+		}
+		return listMilktea;
+	}
+	
+	private CustomMilkteaDto convertCustomMilkTeaEntityToDto(CustomMilktea entity) {
+		CustomMilkteaDto dto = new CustomMilkteaDto();
+		dto.setCustomMilkteaId(entity.getCustomMilkteaId());
+		dto.setSize(entity.getSize());
+		dto.setSugarAmount(entity.getSugarAmount());
+		dto.setIceAmount(entity.getIceAmount());
+		dto.setMilkTeaId(entity.getMilkTea().getMilkTeaId());
+		dto.setEnabled(true);
+		dto.setNameMilktea(entity.getMilkTea().getName());
+		dto.setImgUrl(entity.getMilkTea().getImgUrl());		
+		List<String> toppingName = new ArrayList<>();
+		List<Topping> toppings = entity.getListTopping();
+		for (Topping topping : toppings) {
+			toppingName.add(topping.getName());
+		}
+		
+		dto.setListTopping(toppingName);
+		return dto;
 	}
 }
