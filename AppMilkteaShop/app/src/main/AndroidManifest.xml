@@ -14,7 +14,9 @@
         android:theme="@style/Theme.AppMilkteaShop"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
@@ -62,6 +64,7 @@
         <activity android:name=".activity.ShowDetailActivity" />
         <activity android:name=".activity.CartActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
     </application>
 
 </manifest>

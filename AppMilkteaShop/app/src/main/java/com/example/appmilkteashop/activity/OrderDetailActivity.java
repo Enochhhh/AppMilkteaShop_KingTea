@@ -14,15 +14,11 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.example.appmilkteashop.R;
-import com.example.appmilkteashop.adapter.CartAdapter;
 import com.example.appmilkteashop.adapter.OrderDetailAdapter;
 import com.example.appmilkteashop.databinding.ActivityOrderDetailBinding;
 import com.example.appmilkteashop.dto.CustomMilkteaDto;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
 import com.example.appmilkteashop.helper.ApiHelper;
-import com.example.appmilkteashop.listener.ChangeNumberItemListener;
-import com.example.appmilkteashop.model.Milktea;
-import com.example.appmilkteashop.model.Order;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -127,6 +123,15 @@ public class OrderDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(OrderDetailActivity.this, OrderManagementActivity.class));
             }
         });
+
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderDetailActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

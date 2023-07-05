@@ -228,6 +228,14 @@ public class OrderManagementActivity extends AppCompatActivity {
                 startActivity(new Intent(OrderManagementActivity.this, OrderManagementActivity.class));
             }
         });
+
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderManagementActivity.this, ChangePasswordActivity.class));
+            }
+        });
         dialog.show();
     }
 

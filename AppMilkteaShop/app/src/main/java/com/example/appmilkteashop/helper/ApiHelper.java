@@ -1,6 +1,7 @@
 package com.example.appmilkteashop.helper;
 
 import com.example.appmilkteashop.dto.CustomMilkteaDto;
+import com.example.appmilkteashop.dto.OtpDto;
 import com.example.appmilkteashop.dto.RequestLoginDto;
 import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.dto.ResponseTokenDto;
@@ -108,4 +109,13 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/order/getmilktea")
     Call<List<CustomMilkteaDto>> getMilkteaInOrder(@Header("Authorization") String token, @Query("orderId") String orderId);
+
+    @PUT("milkteashop/kingtea/user/otp/createotp/{email}")
+    Call<ResponseStringDto> createOtpAndCheckEmail(@Header("Authorization") String token, @Path("email") String email);
+
+    @POST("milkteashop/kingtea/user/otp/checkotp")
+    Call<ResponseStringDto> checkOtpAndCreateNewPass(@Header("Authorization") String token, @Body OtpDto otpDto);
+
+    @GET("milkteashop/kingtea/user/otp/sendotpmail")
+    Call<ResponseStringDto> sendOtpCodeToEmailUser(@Header("Authorization") String token, @Query("email") String email);
 }

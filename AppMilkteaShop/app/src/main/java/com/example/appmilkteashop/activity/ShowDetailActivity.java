@@ -330,6 +330,14 @@ public class ShowDetailActivity extends AppCompatActivity {
             }
         });
 
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowDetailActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

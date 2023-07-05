@@ -30,6 +30,7 @@ public class SecurityConfig {
 			.authorizeRequests()
 			.antMatchers("/**/authentication/**").permitAll()
 			.antMatchers("/**/paypal/**").permitAll()
+			.antMatchers("/**/user/otp/**").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()

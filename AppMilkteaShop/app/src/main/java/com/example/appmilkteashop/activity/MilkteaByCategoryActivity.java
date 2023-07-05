@@ -250,6 +250,15 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
                 startActivity(new Intent(MilkteaByCategoryActivity.this, OrderManagementActivity.class));
             }
         });
+
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MilkteaByCategoryActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

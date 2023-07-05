@@ -246,6 +246,15 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(new Intent(CartActivity.this, OrderManagementActivity.class));
             }
         });
+
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }

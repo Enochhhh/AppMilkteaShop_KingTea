@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister;
     private EditText edUsername;
     private EditText edPass;
+    private TextView forgetPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, ChangePasswordActivity.class));
             }
         });
     }
@@ -114,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRegister = (TextView) findViewById(R.id.tv_signup);
         edUsername = (EditText) findViewById(R.id.editTextUsernameLogin);
         edPass = (EditText) findViewById(R.id.editTextPassLogin);
+        forgetPass = (TextView) findViewById(R.id.tv_forget);
     }
 
     private void dialogLoginFail() {

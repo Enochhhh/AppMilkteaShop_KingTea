@@ -300,6 +300,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ChangePasswordActivity.class));
+            }
+        });
+
         dialog.show();
     }
 }
