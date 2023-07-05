@@ -12,4 +12,5 @@ import com.milkteashop.kingtea.model.Milktea;
 @Repository
 public interface MilkTeaRepository extends JpaRepository<Milktea, String> {
 	List<Milktea> findByCategory(Category category);
+	List<Milktea> findByEnabledTrueAndNameContaining(String keyword);
 }

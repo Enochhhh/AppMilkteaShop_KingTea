@@ -60,4 +60,14 @@ public class MilkteaController {
 		}
 		return ResponseEntity.ok(category);
 	}
+	
+	@GetMapping("/getkeyword")
+	public ResponseEntity<Object> getKeyword(@RequestParam String keyword) {
+		List<Milktea> milkteas = milkteaService.getByKeyword(keyword);
+		
+		if (milkteas == null || milkteas.isEmpty()) {
+			throw new NotFoundValueException("Couldn't find any milktea with key word \"" + keyword + "\"", pathApi + "/getkeyword");
+		}
+		return ResponseEntity.ok(milkteas);
+	}
 }

@@ -57,4 +57,9 @@ public class MilkteaService {
 		Milktea milktea = getMilkteaById(milkteaId);
 		return milktea.getCategory();
 	}
+	
+	public List<Milktea> getByKeyword(String keyWord) {
+		List<Milktea> milkteas = milkTeaRepository.findByEnabledTrueAndNameContaining(keyWord);
+		return milkteas;
+	}
 }

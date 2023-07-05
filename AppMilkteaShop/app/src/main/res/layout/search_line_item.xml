@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="milkteaViewHolder"
+            type="com.example.appmilkteashop.adapter.SearchAdapter.MilkteaViewHolder" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/cart_background">
+
+        <ImageView
+            android:id="@+id/btnDel"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/flame"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitleCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitleCart" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{milkteaViewHolder.imgUrl}"/>
+
+        <TextView
+            android:id="@+id/tvTitleCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@{milkteaViewHolder.title}"
+            android:textColor="#373b54"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/tvTotalEachItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{milkteaViewHolder.price}"
+            android:textColor="#373b54"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnAddMilkteaByCate"
+            app:layout_constraintEnd_toEndOf="@+id/btnDel"
+            app:layout_constraintTop_toTopOf="@+id/btnAddMilkteaByCate" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnAddMilkteaByCate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/yellow_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleCart"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleCart"
+            app:layout_constraintVertical_bias="0.555">
+
+            <TextView
+                android:id="@+id/tvNumberItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to cart"
+                android:textColor="#373b54"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvQuantityMT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{milkteaViewHolder.quantity}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnAddMilkteaByCate"
+            app:layout_constraintStart_toStartOf="@+id/btnAddMilkteaByCate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

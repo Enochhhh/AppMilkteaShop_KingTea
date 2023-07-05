@@ -118,4 +118,7 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/user/otp/sendotpmail")
     Call<ResponseStringDto> sendOtpCodeToEmailUser(@Header("Authorization") String token, @Query("email") String email);
+
+    @GET("milkteashop/kingtea/milktea/getkeyword")
+    Call<List<Milktea>> getByKeyword(@Header("Authorization") String token, @Query("keyword") String keyword);
 }

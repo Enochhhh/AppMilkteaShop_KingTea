@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -271,6 +272,29 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);
                 intent.putExtra("categoryId", "All");
                 startActivity(intent);
+            }
+        });
+
+        activityHomeBinding.searchBar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
+                    String keyword = activityHomeBinding.searchBar.getText().toString();
+                    if (keyword.equals("") || keyword.equalsIgnoreCase("All")) {
+                        Intent intent = new Intent(HomeActivity.this, MilkteaByCategoryActivity.class);
+                        intent.putExtra("categoryId", "All");
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                        intent.putExtra("key_word", keyword);
+                        startActivity(intent);
+                    }
+
+                    return true;
+                }
+                return false;
             }
         });
     }
