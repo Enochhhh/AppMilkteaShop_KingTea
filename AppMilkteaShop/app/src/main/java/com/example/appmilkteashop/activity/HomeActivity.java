@@ -271,6 +271,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        activityHomeBinding.btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ActivityUpdateProfile.class));
+            }
+        });
+
         activityHomeBinding.tvSeemore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

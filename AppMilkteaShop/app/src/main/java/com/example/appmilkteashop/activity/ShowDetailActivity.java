@@ -56,6 +56,7 @@ public class ShowDetailActivity extends AppCompatActivity {
     LinearLayout btnSetting;
     LinearLayout btnHome;
     LinearLayout btnSupport;
+    LinearLayout btnProfile;
     TextView btnAddToCart;
     Milktea milktea;
 
@@ -226,6 +227,7 @@ public class ShowDetailActivity extends AppCompatActivity {
         btnHome = (LinearLayout) findViewById(R.id.homeBtn);
         btnAddToCart = (TextView) findViewById(R.id.btnAddToCartDetail);
         btnSupport = (LinearLayout) findViewById(R.id.supportBtn);
+        btnProfile = (LinearLayout) findViewById(R.id.profileBtn);
     }
 
     public void setEvent() {
@@ -310,6 +312,14 @@ public class ShowDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 callApiAddToCart();
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowDetailActivity.this, ActivityUpdateProfile.class));
+
             }
         });
     }

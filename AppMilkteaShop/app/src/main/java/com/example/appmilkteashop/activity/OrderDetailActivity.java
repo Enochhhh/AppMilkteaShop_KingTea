@@ -104,6 +104,14 @@ public class OrderDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(OrderDetailActivity.this, ContactActivity.class));
             }
         });
+
+        activityOrderDetailBinding.profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderDetailActivity.this, ActivityUpdateProfile.class));
+
+            }
+        });
     }
 
     private void dialogSetting() {

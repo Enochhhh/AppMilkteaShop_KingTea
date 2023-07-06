@@ -125,4 +125,10 @@ public interface ApiHelper {
 
     @POST("milkteashop/kingtea/contact/create")
     Call<Contact> createContact(@Header("Authorization") String token, @Body Contact contact);
+
+    @PUT("milkteashop/kingtea/user/update/profile")
+    Call<User> updateProfile(@Header("Authorization") String token, @Body User user);
+
+    @PUT("milkteashop/kingtea/user/update/image")
+    Call<User> updateImage(@Header("Authorization") String token, @Body User user);
 }

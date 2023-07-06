@@ -208,6 +208,14 @@ public class OrderManagementActivity extends AppCompatActivity {
                 startActivity(new Intent(OrderManagementActivity.this, ContactActivity.class));
             }
         });
+
+        activityOrderManagementBinding.profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderManagementActivity.this, ActivityUpdateProfile.class));
+
+            }
+        });
     }
 
     private void dialogSetting() {

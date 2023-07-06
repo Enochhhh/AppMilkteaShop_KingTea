@@ -106,4 +106,38 @@ public class UserService {
 		}
 		return false;
 	}
+	
+	public User updateProfile(User user, HttpServletRequest request) {
+		String token = request.getHeader("Authorization").substring(7);
+		String userId = jwtUtils.extractUserId(token);
+		
+		User userStorage = userRepository.findById(userId).orElse(null);
+		if (userStorage == null) {
+			return null;
+		}
+		
+		userStorage.setFullName(user.getFullName());
+		userStorage.setEmail(user.getEmail());
+		userStorage.setPhone(user.getPhone());
+		userStorage.setAddress(user.getAddress());
+		userStorage.setDateOfBirth(user.getDateOfBirth());
+		
+		return userRepository.save(userStorage);
+		
+	}
+	
+	public User updateImage(User user, HttpServletRequest request) {
+		String token = request.getHeader("Authorization").substring(7);
+		String userId = jwtUtils.extractUserId(token);
+		
+		User userStorage = userRepository.findById(userId).orElse(null);
+		if (userStorage == null) {
+			return null;
+		}
+		
+		userStorage.setImageUrl(user.getImageUrl());
+		
+		return userRepository.save(userStorage);
+		
+	}
 }

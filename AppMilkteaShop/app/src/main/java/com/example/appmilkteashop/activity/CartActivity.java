@@ -154,6 +154,14 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(new Intent(CartActivity.this, ContactActivity.class));
             }
         });
+
+        activityCartBinding.profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, ActivityUpdateProfile.class));
+
+            }
+        });
     }
 
     private void callApiUpdateToCart(String token, CustomMilkteaDto cusRequest, boolean isPlus) {

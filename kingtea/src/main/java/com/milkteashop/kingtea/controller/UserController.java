@@ -76,4 +76,27 @@ public class UserController {
 		responseStringDto.setMessage("OTP is sent to email " + email);
 		return ResponseEntity.ok(responseStringDto);
 	}
+	
+	@PutMapping("/update/profile")
+	public ResponseEntity<Object> updateProfile(@RequestBody User user, HttpServletRequest request) {
+		user = userService.updateProfile(user, request);
+		System.out.println("Success");
+		
+		if (user == null) {
+			throw new NotFoundValueException("Couldn't update profile", pathApi + "/update/profile");
+		}
+		
+		return ResponseEntity.ok(user);
+	}
+	
+	@PutMapping("/update/image")
+	public ResponseEntity<Object> updateImage(@RequestBody User user, HttpServletRequest request) {
+		user = userService.updateImage(user, request);
+		
+		if (user == null) {
+			throw new NotFoundValueException("Couldn't update profile", pathApi + "/update/profile");
+		}
+		
+		return ResponseEntity.ok(user);
+	}
 }

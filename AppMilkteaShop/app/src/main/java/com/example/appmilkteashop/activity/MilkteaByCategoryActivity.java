@@ -228,6 +228,14 @@ public class MilkteaByCategoryActivity extends AppCompatActivity {
                 startActivity(new Intent(MilkteaByCategoryActivity.this, ContactActivity.class));
             }
         });
+
+        activityMilkteabycategoryBinding.btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MilkteaByCategoryActivity.this, ActivityUpdateProfile.class));
+
+            }
+        });
     }
 
     private void dialogSetting() {
