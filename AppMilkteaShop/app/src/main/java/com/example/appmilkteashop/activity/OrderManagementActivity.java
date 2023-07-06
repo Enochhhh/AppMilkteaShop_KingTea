@@ -202,6 +202,12 @@ public class OrderManagementActivity extends AppCompatActivity {
             }
         });
 
+        activityOrderManagementBinding.supportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderManagementActivity.this, ContactActivity.class));
+            }
+        });
     }
 
     private void dialogSetting() {

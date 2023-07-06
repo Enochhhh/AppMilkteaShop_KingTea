@@ -6,6 +6,7 @@ import com.example.appmilkteashop.dto.RequestLoginDto;
 import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.dto.ResponseTokenDto;
 import com.example.appmilkteashop.model.Category;
+import com.example.appmilkteashop.model.Contact;
 import com.example.appmilkteashop.model.Milktea;
 import com.example.appmilkteashop.model.Order;
 import com.example.appmilkteashop.model.Topping;
@@ -121,4 +122,7 @@ public interface ApiHelper {
 
     @GET("milkteashop/kingtea/milktea/getkeyword")
     Call<List<Milktea>> getByKeyword(@Header("Authorization") String token, @Query("keyword") String keyword);
+
+    @POST("milkteashop/kingtea/contact/create")
+    Call<Contact> createContact(@Header("Authorization") String token, @Body Contact contact);
 }

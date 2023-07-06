@@ -257,6 +257,20 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        activityHomeBinding.homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+            }
+        });
+
+        activityHomeBinding.btnSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ContactActivity.class));
+            }
+        });
+
         activityHomeBinding.tvSeemore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

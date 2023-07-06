@@ -97,6 +97,13 @@ public class OrderDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(OrderDetailActivity.this, CartActivity.class));
             }
         });
+
+        activityOrderDetailBinding.supportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(OrderDetailActivity.this, ContactActivity.class));
+            }
+        });
     }
 
     private void dialogSetting() {

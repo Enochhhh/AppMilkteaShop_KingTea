@@ -55,6 +55,7 @@ public class ShowDetailActivity extends AppCompatActivity {
     LinearLayout btnCart;
     LinearLayout btnSetting;
     LinearLayout btnHome;
+    LinearLayout btnSupport;
     TextView btnAddToCart;
     Milktea milktea;
 
@@ -224,6 +225,7 @@ public class ShowDetailActivity extends AppCompatActivity {
         btnSetting = (LinearLayout) findViewById(R.id.settingBtn);
         btnHome = (LinearLayout) findViewById(R.id.homeBtn);
         btnAddToCart = (TextView) findViewById(R.id.btnAddToCartDetail);
+        btnSupport = (LinearLayout) findViewById(R.id.supportBtn);
     }
 
     public void setEvent() {
@@ -294,6 +296,13 @@ public class ShowDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ShowDetailActivity.this, HomeActivity.class));
+            }
+        });
+
+        btnSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShowDetailActivity.this, ContactActivity.class));
             }
         });
 

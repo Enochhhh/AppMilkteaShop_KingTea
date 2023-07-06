@@ -185,6 +185,13 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        activitySearchBinding.btnSupport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SearchActivity.this, ContactActivity.class));
+            }
+        });
     }
 
     private void dialogSetting() {
