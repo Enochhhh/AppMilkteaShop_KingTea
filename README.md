@@ -2,7 +2,7 @@
 Front-end side with Android and Back-end side with Spring Boot
 
 ## Member
-  - Phan Hồng Sơn
+  - Phan Hồng Sơn: This project I'm in charge of both Front-end and Back-end
 
 ## Technology
   - Front-end: Android
@@ -32,7 +32,7 @@ Front-end side with Android and Back-end side with Spring Boot
         . Email: sb-kqxfi26486900@personal.example.com
         . Password: tJ#rv!n8
         
-## The Function of the application that I have implemented
+## The function and mission of the application that I have implemented
   - Configuration Spring Security
   - Login/Register: After the user login successfully, the Back-end side will generate a token and send it to the Front-end side, and the Front-end side will store this token in the file SharedPreferences to get the token value when calling API
   - Logout: The token stored before will be deleted when logout
