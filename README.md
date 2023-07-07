@@ -15,22 +15,22 @@ Front-end side with Android and Back-end side with Spring Boot
   - MySQL Workbench 8.0
 
 ## Instructions for running the app
-  First, you can install Eclipse IDE(JDK 1.8), Android Studio, and MySQL Workbench on your computer.
+  First, you can install Eclipse IDE(JDK 1.8), Android Studio, and MySQL Workbench on your computer
   Then, download the source code on GitHub with this URL https://github.com/Enochhhh/AppMilkteaShop_KingTea.git, and unzip the file. After the file is unzipped, open MySQL to create a Database for the application with the file CreateDB.sql in the folder Database, and then import data for it by running the file DataDB.xml
   Next step, you'll need to download the Lombok library for Eclipse. You can refer it to https://www.youtube.com/watch?v=gsFPXkYDb-s&pp=ugMICgJ2aRABGAHKBRpkb3dubG9hZCBsb21ib2sgaW4gZWNsaXBzZQ%3D%3D
-  After downloading the Lombok, import the folder named "kingtea" into Eclipse IDE to run the Back-end side, and import the folder named "AppMilkteaShop" into Android Studio to run the Front-end side.
-  So that you know, the application is running on a local host; you should configure the application to match the path on your machine. More specifically, on the Back-end side, you will see all configuration information; you must change it with the path on your computer.
-  Finally, you have to open an interface named ApiHelper on the Front-end side in the folder called helper; and change the domainApi variable by your IPv4 Address; you can open the Command Prompt and type ipconfig to check it.
-  After completing the steps, you can run the application by running the Back-end side first and then running the Front-end side later.
+  After downloading the Lombok, import the folder named "kingtea" into Eclipse IDE to run the Back-end side, and import the folder named "AppMilkteaShop" into Android Studio to run the Front-end side
+  So that you know, the application is running on a local host; you should configure the application to match the path on your machine. More specifically, on the Back-end side, you will see all configuration information; you must change it with the path on your computer
+  Finally, you have to open an interface named ApiHelper on the Front-end side in the folder called helper; and change the domainApi variable by your IPv4 Address; you can open the Command Prompt and type ipconfig to check it
+  After completing the steps, you can run the application by running the Back-end side first and then running the Front-end side later
 
 ## Paypal
   You can test the function PayPal Payment with two accounts following:
     - Main account to receive money from customers:
-        . Email: sb-647o47c26486897@business.example.com
-        . Password: 9D)XAt6?
+        Email: sb-647o47c26486897@business.example.com
+        Password: 9D)XAt6?
     - Account to send money for payment:
-        . Email: sb-kqxfi26486900@personal.example.com
-        . Password: tJ#rv!n8
+        Email: sb-kqxfi26486900@personal.example.com
+        Password: tJ#rv!n8
         
 ## The function and mission of the application that I have implemented
   - Configuration Spring Security
