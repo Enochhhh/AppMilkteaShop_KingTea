@@ -159,6 +159,17 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 	
+	public Order acceptOrder(String orderId) {
+		Order order = getOrder(orderId);
+		
+		if (order == null) {
+			return null;
+		}
+		
+		order.setState("Accepted");
+		return orderRepository.save(order);
+	}
+	
 	public List<CustomMilkteaDto> getMilkteaInOrder(String orderId) {
 		Order order = getOrder(orderId);
 		
@@ -196,5 +207,11 @@ public class OrderService {
 		
 		dto.setListTopping(toppingName);
 		return dto;
+	}
+	
+	public List<Order> getOrderByState(String state) {
+		List<Order> orders = orderRepository.findByStateAndEnabledTrueOrderByDateCreated(state);
+		
+		return orders;
 	}
 }

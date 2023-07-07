@@ -17,11 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appmilkteashop.R;
+import com.example.appmilkteashop.adapter.OrderAdminReceiveAdapter;
 import com.example.appmilkteashop.adapter.OrderManagementAdapter;
+import com.example.appmilkteashop.databinding.ActivityAdminOrderBinding;
 import com.example.appmilkteashop.databinding.ActivityOrderManagementBinding;
 import com.example.appmilkteashop.dto.ResponseErrorDto;
 import com.example.appmilkteashop.dto.ResponseStringDto;
 import com.example.appmilkteashop.helper.ApiHelper;
+import com.example.appmilkteashop.listener.OrderAdminReceiveListener;
 import com.example.appmilkteashop.listener.OrderManagementListener;
 import com.example.appmilkteashop.model.Order;
 import com.google.gson.Gson;
@@ -32,22 +35,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderManagementActivity extends AppCompatActivity {
+public class AdminOrderActivity extends AppCompatActivity {
 
-    private ActivityOrderManagementBinding activityOrderManagementBinding;
-    private OrderManagementAdapter orderManagementAdapter;
+    private ActivityAdminOrderBinding activityAdminOrderBinding;
+    private OrderAdminReceiveAdapter orderAdminReceiveAdapter;
     private String imageOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityOrderManagementBinding = DataBindingUtil.setContentView(this, R.layout.activity_order_management);
+        activityAdminOrderBinding = DataBindingUtil.setContentView(this, R.layout.activity_admin_order);
         setEvent();
         loadDataRcViewOrder();
     }
 
     private void loadDataRcViewOrder() {
-        activityOrderManagementBinding.rcViewOrder.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        activityAdminOrderBinding.rcViewOrder.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         SharedPreferences sharedPreferences = getSharedPreferences("TokenValue", 0);
         String token = sharedPreferences.getString("token", "");
@@ -56,23 +59,25 @@ public class OrderManagementActivity extends AppCompatActivity {
     }
 
     private void callApiGetAllOrder(String token) {
-        ApiHelper.apiService.getAllOrderOfUser(token).enqueue(new Callback<List<Order>>() {
+        ApiHelper.apiService.getOrderByState(token, "Waiting Accept").enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 if (response.isSuccessful()) {
                     List<Order> orders = response.body();
 
-                    orderManagementAdapter = new OrderManagementAdapter(orders, new OrderManagementListener() {
+                    orderAdminReceiveAdapter = new OrderAdminReceiveAdapter(orders, new OrderAdminReceiveListener() {
                         @Override
                         public void showDetailOrder(String orderId) {
-                            Intent intent = new Intent(OrderManagementActivity.this, OrderDetailActivity.class);
+                            Intent intent = new Intent(AdminOrderActivity.this, AdminOrderDetailActivity.class);
                             intent.putExtra("order_key", orderId);
                             startActivity(intent);
                         }
 
                         @Override
-                        public void paymentOrder(Order order) {
-                            callApiPayPal(token, order);
+                        public void receiveOrder(String orderId) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("TokenValue", 0);
+                            String token = "Bearer " + sharedPreferences.getString("token", "");
+                            callApiAcceptOrder(token, orderId);
                         }
 
                         @Override
@@ -86,47 +91,21 @@ public class OrderManagementActivity extends AppCompatActivity {
                         }
                     });
 
-                    activityOrderManagementBinding.rcViewOrder.setAdapter(orderManagementAdapter);
+                    activityAdminOrderBinding.rcViewOrder.setAdapter(orderAdminReceiveAdapter);
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                     if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {
-                        startActivity(new Intent(OrderManagementActivity.this, ExceptionActivity.class));
+                        startActivity(new Intent(AdminOrderActivity.this, ExceptionActivity.class));
                     }
-                    activityOrderManagementBinding.rcViewOrder.setVisibility(View.GONE);
-                    activityOrderManagementBinding.tvEmpty.setVisibility(View.VISIBLE);
-                    Toast.makeText(OrderManagementActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    activityAdminOrderBinding.rcViewOrder.setVisibility(View.GONE);
+                    activityAdminOrderBinding.tvEmpty.setVisibility(View.VISIBLE);
+                    Toast.makeText(AdminOrderActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Order>> call, Throwable t) {
-                Toast.makeText(OrderManagementActivity.this, "Get orders unsuccessfully",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void callApiPayPal(String token, Order order) {
-        ApiHelper.apiService.paypalPayment(token, order).enqueue(new Callback<ResponseStringDto>() {
-            @Override
-            public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
-                if (response.isSuccessful()) {
-                    ResponseStringDto stringDto = response.body();
-                    Uri uri = Uri.parse(stringDto.getMessage()); // missing 'http://' will cause crashed
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                } else {
-                    ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
-                    if (error.getStatus().equals("INTERNAL_SERVER_ERROR") || error == null) {
-                        startActivity(new Intent(OrderManagementActivity.this, ExceptionActivity.class));
-                    }
-                    Toast.makeText(OrderManagementActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseStringDto> call, Throwable t) {
-                Toast.makeText(OrderManagementActivity.this, "Payment unsuccessfully",
+                Toast.makeText(AdminOrderActivity.this, "Get orders unsuccessfully",
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -137,13 +116,13 @@ public class OrderManagementActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
                 if (response.isSuccessful()) {
-                    dialogCancelSuccess();
+                    dialogSuccess("Order Is Cancelled", "Cancel Order Successfully");
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                     if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {
-                        startActivity(new Intent(OrderManagementActivity.this, ExceptionActivity.class));
+                        startActivity(new Intent(AdminOrderActivity.this, ExceptionActivity.class));
                     }
-                    Toast.makeText(OrderManagementActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminOrderActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
                     dialogCancelFail();
                 }
             }
@@ -151,7 +130,32 @@ public class OrderManagementActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseStringDto> call, Throwable t) {
                 dialogCancelFail();
-                Toast.makeText(OrderManagementActivity.this, "Cancel order unsuccessfully",
+                Toast.makeText(AdminOrderActivity.this, "Cancel order unsuccessfully",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void callApiAcceptOrder(String token, String orderId) {
+        ApiHelper.apiService.acceptOrder(token, orderId).enqueue(new Callback<ResponseStringDto>() {
+            @Override
+            public void onResponse(Call<ResponseStringDto> call, Response<ResponseStringDto> response) {
+                if (response.isSuccessful()) {
+                    dialogSuccess("Order Is Accepted", "Accepted Order Successfully");
+                } else {
+                    ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
+                    if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {
+                        startActivity(new Intent(AdminOrderActivity.this, ExceptionActivity.class));
+                    }
+                    Toast.makeText(AdminOrderActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    dialogCancelFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseStringDto> call, Throwable t) {
+                dialogCancelFail();
+                Toast.makeText(AdminOrderActivity.this, "Accept order unsuccessfully",
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -167,15 +171,15 @@ public class OrderManagementActivity extends AppCompatActivity {
                 } else {
                     ResponseErrorDto error = new Gson().fromJson(response.errorBody().charStream(), ResponseErrorDto.class);
                     if (error == null || error.getStatus().equals("INTERNAL_SERVER_ERROR")) {
-                        startActivity(new Intent(OrderManagementActivity.this, ExceptionActivity.class));
+                        startActivity(new Intent(AdminOrderActivity.this, ExceptionActivity.class));
                     }
-                    Toast.makeText(OrderManagementActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminOrderActivity.this, "" + error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseStringDto> call, Throwable t) {
-                Toast.makeText(OrderManagementActivity.this, "Get orders unsuccessfully",
+                Toast.makeText(AdminOrderActivity.this, "Get orders unsuccessfully",
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -183,76 +187,12 @@ public class OrderManagementActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-        activityOrderManagementBinding.homeBtn.setOnClickListener(new View.OnClickListener() {
+        activityAdminOrderBinding.imvBtnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, HomeActivity.class));
+                startActivity(new Intent(AdminOrderActivity.this, AdminActivity.class));
             }
         });
-
-        activityOrderManagementBinding.cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, CartActivity.class));
-            }
-        });
-
-        activityOrderManagementBinding.settingBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogSetting();
-            }
-        });
-
-        activityOrderManagementBinding.supportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, ContactActivity.class));
-            }
-        });
-
-        activityOrderManagementBinding.profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, ActivityUpdateProfile.class));
-
-            }
-        });
-    }
-
-    private void dialogSetting() {
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
-        dialog.setContentView(R.layout.setting_dialog);
-
-        dialog.setCanceledOnTouchOutside(true);
-
-        ConstraintLayout btnLogout = (ConstraintLayout) dialog.findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences prefTokens = getSharedPreferences("TokenValue", 0);
-                prefTokens.edit().clear().commit();
-                startActivity(new Intent(OrderManagementActivity.this, LoginActivity.class));
-            }
-        });
-
-        ConstraintLayout btnOrder = (ConstraintLayout) dialog.findViewById(R.id.btnOrder);
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, OrderManagementActivity.class));
-            }
-        });
-
-        ConstraintLayout btnChangePass = (ConstraintLayout) dialog.findViewById(R.id.btnChangePass);
-        btnChangePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OrderManagementActivity.this, ChangePasswordActivity.class));
-            }
-        });
-        dialog.show();
     }
 
     private void dialogCancelFail() {
@@ -270,16 +210,21 @@ public class OrderManagementActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void dialogCancelSuccess() {
+    private void dialogSuccess(String title, String infor) {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
         dialog.setContentView(R.layout.validate_success_dialog);
         dialog.setCanceledOnTouchOutside(true);
 
+        TextView tvTitle = dialog.findViewById(R.id.tvTitleErr);
+        TextView tvTitleInfor = dialog.findViewById(R.id.tvInforErr);
+
+        tvTitle.setText(title);
+        tvTitleInfor.setText(infor);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                startActivity(new Intent(OrderManagementActivity.this, OrderManagementActivity.class));
+                startActivity(new Intent(AdminOrderActivity.this, AdminOrderActivity.class));
             }
         });
 

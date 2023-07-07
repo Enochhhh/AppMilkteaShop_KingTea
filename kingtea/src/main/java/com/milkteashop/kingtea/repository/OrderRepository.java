@@ -12,4 +12,5 @@ import com.milkteashop.kingtea.model.User;
 public interface OrderRepository extends JpaRepository<Order, String> {
 	List<Order> findByStateAndEnabledTrue(String state);
 	List<Order> findByUserAndEnabledTrueOrderByDateCreatedDesc(User user);
+	List<Order> findByStateAndEnabledTrueOrderByDateCreated(String state);
 }

@@ -108,6 +108,9 @@ public interface ApiHelper {
     @PUT("milkteashop/kingtea/order/cancel/{orderId}")
     Call<ResponseStringDto> cancelOrder(@Header("Authorization") String token, @Path("orderId") String orderId);
 
+    @PUT("milkteashop/kingtea/order/accept/{orderId}")
+    Call<ResponseStringDto> acceptOrder(@Header("Authorization") String token, @Path("orderId") String orderId);
+
     @GET("milkteashop/kingtea/order/getmilktea")
     Call<List<CustomMilkteaDto>> getMilkteaInOrder(@Header("Authorization") String token, @Query("orderId") String orderId);
 
@@ -131,4 +134,7 @@ public interface ApiHelper {
 
     @PUT("milkteashop/kingtea/user/update/image")
     Call<User> updateImage(@Header("Authorization") String token, @Body User user);
+
+    @GET("milkteashop/kingtea/order/getbystate")
+    Call<List<Order>> getOrderByState(@Header("Authorization") String token, @Query("state") String state);
 }

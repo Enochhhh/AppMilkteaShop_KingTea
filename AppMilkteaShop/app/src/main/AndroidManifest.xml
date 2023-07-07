@@ -14,18 +14,7 @@
         android:theme="@style/Theme.AppMilkteaShop"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".ActivityUpdateImage"
-            android:exported="false" />
-        <activity
-            android:name=".ContactActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
@@ -39,7 +28,7 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ExceptionActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.AdminActivity" />
+        <activity android:name=".activity.AdminOrderActivity" />
         <activity
             android:name=".activity.OrderManagementActivity"
             android:exported="true">
@@ -78,6 +67,8 @@
         <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.ActivityUpdateProfile" />
         <activity android:name=".activity.ActivityUpdateImage" />
+        <activity android:name=".activity.AdminOrderDetailActivity" />
+        <activity android:name=".activity.AdminActivity" />
     </application>
 
 </manifest>

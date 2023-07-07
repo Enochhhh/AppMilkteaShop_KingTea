@@ -8,6 +8,22 @@
         android:layout_height="match_parent"
         android:background="#ecebe6">
 
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="You don't have\nany order before !"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/scrollView"
+            app:layout_constraintStart_toStartOf="@+id/scrollView"
+            app:layout_constraintTop_toTopOf="@+id/scrollView" />
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"

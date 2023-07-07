@@ -62,6 +62,16 @@ public class OrderController {
 		return ResponseEntity.ok(orders);
 	}
 	
+	@GetMapping("/getbystate")
+	ResponseEntity<Object> getOrderByState(@RequestParam String state) {
+		List<Order> orders = orderService.getOrderByState(state);
+		
+		if (orders == null || orders.isEmpty()) {
+			throw new NotFoundValueException("Couldn't find any order with state \"" + state + "\"", "/milkteashop/kingtea/order/getbystate");
+		}
+		return ResponseEntity.ok(orders);
+	}
+	
 	@GetMapping("/getimageorder")
 	ResponseEntity<Object> getImageOrder(@RequestParam String orderId) {
 		String url = orderService.getImageOrder(orderId);
@@ -95,5 +105,17 @@ public class OrderController {
 			throw new NotFoundValueException("Get Order detail unsuccessfully", "/milkteashop/kingtea/order");
 		}
 		return ResponseEntity.ok(listMilktea);
+	}
+	
+	@PutMapping("/accept/{orderId}")
+	ResponseEntity<Object> acceptOrder(@PathVariable String orderId) {
+		Order order = orderService.acceptOrder(orderId);
+		
+		if (order == null) {
+			throw new NotFoundValueException("Couldn't find Order to accept", "/milkteashop/kingtea/order/accept");
+		}
+		ResponseStringDto res = new ResponseStringDto();
+		res.setMessage("Accept Order Successfully");
+		return ResponseEntity.ok(res);
 	}
 }
