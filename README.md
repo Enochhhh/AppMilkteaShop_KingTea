@@ -24,13 +24,9 @@ Front-end side with Android and Back-end side with Spring Boot
   After completing the steps, you can run the application by running the Back-end side first and then running the Front-end side later
 
 ## Paypal
-  You can test the function PayPal Payment with two accounts following
-    - Main account to receive money from customers
-        - Email: sb-647o47c26486897@business.example.com
-        - Password: 9D)XAt6?
-    - Account to send money for payment
-        - Email: sb-kqxfi26486900@personal.example.com
-        - Password: tJ#rv!n8
+  - You can test the function PayPal Payment with two accounts following
+      + Main account to receive money from customers: Email: sb-647o47c26486897@business.example.com, Password: 9D)XAt6?
+      + Account to send money for payment: Email: sb-kqxfi26486900@personal.example.com, Password: tJ#rv!n8
         
 ## The function and mission of the application that I have implemented
   - Configuration Spring Security
